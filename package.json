@@ -14,7 +14,6 @@
     ]
   ],
   "_from": "material-ui-components@latest",
-  "_id": "material-ui-components@1.0.0",
   "_inCache": true,
   "_location": "/material-ui-components",
   "_nodeVersion": "7.10.0",
@@ -46,9 +45,7 @@
   "_shrinkwrap": null,
   "_spec": "material-ui-components",
   "_where": "/var/www/vhosts/matryoshki.info/public_html/assets/components/modxsite/templates/matryoshki/crm/v4",
-  "author": {
-    "name": "Fi1osof"
-  },
+  "author": "Fi1osof",
   "dependencies": {
     "@material/snackbar": "^0.1.9",
     "jss-theme-reactor": "^0.11.1",
@@ -61,20 +58,26 @@
     "shasum": "9617fb96984a1b1d21559d9bd520cd65afcf40c2",
     "tarball": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.0.0.tgz"
   },
-  "gitHead": "991bc01bbb90ad95728cfde7be2fec2a904447c2",
   "license": "MIT",
   "main": "index.js",
   "maintainers": [
-    {
-      "name": "fi1osof",
-      "email": "n.lanets@modxclub.ru"
-    }
+    "fi1osof <n.lanets@modxclub.ru>"
   ],
   "name": "material-ui-components",
   "optionalDependencies": {},
-  "readme": "ERROR: No README data found!",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.0"
+  "version": "1.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://Fi1osof@github.com/MODX-Club/material-ui-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MODX-Club/material-ui-components/issues"
+  },
+  "homepage": "https://github.com/MODX-Club/material-ui-components#readme",
+  "keywords": [
+    "material-ui"
+  ]
 }
