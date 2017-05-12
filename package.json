@@ -11,15 +11,28 @@
         "type": "tag"
       },
       "/var/www/vhosts/matryoshki.info/public_html/assets/components/modxsite/templates/matryoshki/crm/v4"
+    ],
+    [
+      {
+        "raw": "material-ui-components",
+        "scope": null,
+        "escapedName": "material-ui-components",
+        "name": "material-ui-components",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/var/www/vhosts/sportpoisk.ru/assets/components/modxsite/templates/map/v4"
     ]
   ],
-  "_from": "material-ui-components@latest",
+  "_from": "material-ui-components",
+  "_id": "material-ui-components@1.1.0",
   "_inCache": true,
   "_location": "/material-ui-components",
   "_nodeVersion": "7.10.0",
   "_npmOperationalInternal": {
-    "host": "packages-18-east.internal.npmjs.com",
-    "tmp": "tmp/material-ui-components-1.0.0.tgz_1494518955711_0.1377284829504788"
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/material-ui-components-1.1.0.tgz_1494581590728_0.3897253137547523"
   },
   "_npmUser": {
     "name": "fi1osof",
@@ -40,12 +53,17 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.0.0.tgz",
-  "_shasum": "9617fb96984a1b1d21559d9bd520cd65afcf40c2",
+  "_resolved": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.1.0.tgz",
+  "_shasum": "98971ce02e4dad9f99b84c07e1024c441dda673f",
   "_shrinkwrap": null,
   "_spec": "material-ui-components",
-  "_where": "/var/www/vhosts/matryoshki.info/public_html/assets/components/modxsite/templates/matryoshki/crm/v4",
-  "author": "Fi1osof",
+  "_where": "/var/www/vhosts/sportpoisk.ru/assets/components/modxsite/templates/map/v4",
+  "author": {
+    "name": "Fi1osof"
+  },
+  "bugs": {
+    "url": "https://github.com/MODX-Club/material-ui-components/issues"
+  },
   "dependencies": {
     "@material/snackbar": "^0.1.9",
     "jss-theme-reactor": "^0.11.1",
@@ -55,29 +73,31 @@
   "devDependencies": {},
   "directories": {},
   "dist": {
-    "shasum": "9617fb96984a1b1d21559d9bd520cd65afcf40c2",
-    "tarball": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.0.0.tgz"
+    "shasum": "98971ce02e4dad9f99b84c07e1024c441dda673f",
+    "tarball": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.1.0.tgz"
   },
+  "gitHead": "c76bd3cfab1f9af74db44d00e8019b956df0d063",
+  "homepage": "https://github.com/MODX-Club/material-ui-components#readme",
+  "keywords": [
+    "material-ui"
+  ],
   "license": "MIT",
   "main": "index.js",
   "maintainers": [
-    "fi1osof <n.lanets@modxclub.ru>"
+    {
+      "name": "fi1osof",
+      "email": "n.lanets@modxclub.ru"
+    }
   ],
   "name": "material-ui-components",
   "optionalDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "version": "1.1.1",
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://Fi1osof@github.com/MODX-Club/material-ui-components.git"
   },
-  "bugs": {
-    "url": "https://github.com/MODX-Club/material-ui-components/issues"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/MODX-Club/material-ui-components#readme",
-  "keywords": [
-    "material-ui"
-  ]
+  "version": "1.1.1"
 }
