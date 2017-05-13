@@ -3,5 +3,7 @@ export {default as Auth} from './src/Auth/';
 export {default as GooglePlaceAutocomplete} from './src/GooglePlaceAutocomplete/';
 export {default as Informer} from './src/Informer/';
 export {default as Popover} from './src/Popover/';
+export {default as RichTextEditor} from './src/RichTextEditor/';
+export {default as SelectField} from './src/SelectField/';
 export {default as Snackbar} from './src/Snackbar/';
 export {default as TextArea} from './src/TextArea/';
