@@ -35,16 +35,28 @@
         "type": "version"
       },
       "/var/www/vhosts/matryoshki.info/public_html/assets/components/modxsite/templates/matryoshki/crm/v4"
+    ],
+    [
+      {
+        "raw": "material-ui-components",
+        "scope": null,
+        "escapedName": "material-ui-components",
+        "name": "material-ui-components",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/var/www/vhosts/modmonitor.ru/assets/components/modmonitor/app"
     ]
   ],
-  "_from": "material-ui-components@1.1.2",
-  "_id": "material-ui-components@1.1.2",
+  "_from": "material-ui-components",
+  "_id": "material-ui-components@1.3.0",
   "_inCache": true,
   "_location": "/material-ui-components",
   "_nodeVersion": "7.10.0",
   "_npmOperationalInternal": {
     "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/material-ui-components-1.1.2.tgz_1494603717023_0.4219448915682733"
+    "tmp": "tmp/material-ui-components-1.3.0.tgz_1494717978202_0.24898649915121496"
   },
   "_npmUser": {
     "name": "fi1osof",
@@ -53,23 +65,23 @@
   "_npmVersion": "4.2.0",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "material-ui-components@1.1.2",
+    "raw": "material-ui-components",
     "scope": null,
     "escapedName": "material-ui-components",
     "name": "material-ui-components",
-    "rawSpec": "1.1.2",
-    "spec": "1.1.2",
-    "type": "version"
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.1.2.tgz",
-  "_shasum": "669cd928a860e94e0a8833a3c0f4114b983a3bbd",
+  "_resolved": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.3.0.tgz",
+  "_shasum": "ab413b902a404f63ba7f35348317a255e597f2e4",
   "_shrinkwrap": null,
-  "_spec": "material-ui-components@1.1.2",
-  "_where": "/var/www/vhosts/matryoshki.info/public_html/assets/components/modxsite/templates/matryoshki/crm/v4",
+  "_spec": "material-ui-components",
+  "_where": "/var/www/vhosts/modmonitor.ru/assets/components/modmonitor/app",
   "author": {
     "name": "Fi1osof"
   },
@@ -85,8 +97,8 @@
   "devDependencies": {},
   "directories": {},
   "dist": {
-    "shasum": "669cd928a860e94e0a8833a3c0f4114b983a3bbd",
-    "tarball": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.1.2.tgz"
+    "shasum": "ab413b902a404f63ba7f35348317a255e597f2e4",
+    "tarball": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.3.0.tgz"
   },
   "gitHead": "c76bd3cfab1f9af74db44d00e8019b956df0d063",
   "homepage": "https://github.com/MODX-Club/material-ui-components#readme",
@@ -111,5 +123,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.3.0"
+  "version": "1.4.0"
 }
