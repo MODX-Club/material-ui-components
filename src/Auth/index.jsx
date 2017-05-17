@@ -42,6 +42,7 @@ let lexicon = {
 
 const defaultProps = {
   showRegForm: true,
+  allowPasswordRecovery: true,
 }
 
 class ProfileDialogAuthStepFindUser extends Component {
@@ -205,13 +206,16 @@ class ProfileDialogAuthStepAuth extends Component {
 
     }
     else{
-      actions.push(<Button
-        key="forgot"
-        disabled={this.props.password_send_in_progress == true ? true : false}
-        onTouchTap={scope.sendNewPassword.bind(scope)}
-      >
-        Новый пароль
-      </Button>);
+
+      if(this.props.allowPasswordRecovery === true){
+        actions.push(<Button
+          key="forgot"
+          disabled={this.props.password_send_in_progress == true ? true : false}
+          onTouchTap={scope.sendNewPassword.bind(scope)}
+        >
+          Новый пароль
+        </Button>);
+      }
 
       actions.push(<Button
         key="prev"
@@ -751,6 +755,7 @@ export default class Auth extends Component {
             errors={this.state.errors}
             scope={this}
             password={this.state.password}
+            allowPasswordRecovery={this.props.allowPasswordRecovery}
             documentActions={this.props.documentActions}
             onChange={(e) => {
               this.onChange(e)
