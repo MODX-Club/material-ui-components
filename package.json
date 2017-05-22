@@ -42,7 +42,8 @@
   "dependencies": {
     "@material/snackbar": "^0.1.9",
     "jss-theme-reactor": "^0.11.1",
-    "react": "^15.5.4"
+    "react": "^15.5.4",
+    "react-addons-shallow-compare": "^15.5.2"
   },
   "description": "Components for material-ui-alpha",
   "devDependencies": {},
@@ -74,5 +75,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.6.0"
+  "version": "1.6.1"
 }
