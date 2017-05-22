@@ -2,12 +2,12 @@ import './styles.less';
 
 import React, {Component} from 'react';
 
-import customPropTypes from 'material-ui/src/utils/customPropTypes';
-import { withStyles, createStyleSheet } from 'material-ui/src/styles';
+import customPropTypes from 'material-ui/utils/customPropTypes';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 import {DataTimePicker, Calendar, Clock } from './src';
 
-import TextField from 'material-ui/src/TextField';
+import TextField from 'material-ui/TextField';
 
 import moment from 'moment';
 
@@ -16,7 +16,7 @@ import Dialog, {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from 'material-ui/src/Dialog';
+} from 'material-ui/Dialog';
 
 window.moment = moment;
 

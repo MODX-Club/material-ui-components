@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
 import { createStyleSheet } from 'jss-theme-reactor';
-import customPropTypes from 'material-ui/src/utils/customPropTypes';
+import customPropTypes from 'material-ui/utils/customPropTypes';
 
-import TextField from 'material-ui/src/TextField';
+import TextField from 'material-ui/TextField';
 
 import Popover from '../Popover';
 
@@ -14,7 +14,7 @@ import List, {
   ListItemText,
   ListItemIcon,
   ListItemSecondaryAction
-} from 'material-ui/src/List';
+} from 'material-ui/List';
 
 const defaultProps = {
   input_id: _.uniqueId('autocomplete_'),

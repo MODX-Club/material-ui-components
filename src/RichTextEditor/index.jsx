@@ -4,10 +4,10 @@
 import React, {Component} from 'react';
 
 import { createStyleSheet } from 'jss-theme-reactor';
-import customPropTypes from 'material-ui/src/utils/customPropTypes';
+import customPropTypes from 'material-ui/utils/customPropTypes';
 
-import {FormControl} from 'material-ui/src/Form';
-import {InputLabel} from 'material-ui/src/Input';
+import {FormControl} from 'material-ui/Form';
+import {InputLabel} from 'material-ui/Input';
 
 import Draft from 'draft-js';
 import removeRangeFromContentState from 'draft-js/lib/removeRangeFromContentState';
@@ -16,7 +16,7 @@ const URI = require('fbjs/lib/URI');
 var DraftEntity = require('draft-js/lib/DraftEntity');
 var {Editor, EditorState, RichUtils, CompositeDecorator, convertToRaw, convertFromRaw, ContentState, SelectionState, Modifier, convertFromHTML, genKey, ContentBlock} = Draft;
 
-import IconButton from 'material-ui/src/IconButton';
+import IconButton from 'material-ui/IconButton';
 
 import Send from 'material-ui-icons/Send';
 import WaitIcon from 'material-ui-icons/HourglassEmpty';

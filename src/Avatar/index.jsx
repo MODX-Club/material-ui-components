@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
 import { createStyleSheet } from 'jss-theme-reactor';
-import customPropTypes from 'material-ui/src/utils/customPropTypes';
+import customPropTypes from 'material-ui/utils/customPropTypes';
 
-import Avatar from 'material-ui/src/Avatar';
+import Avatar from 'material-ui/Avatar';
 
 const defaultProps = {
   username: "Anonimous",

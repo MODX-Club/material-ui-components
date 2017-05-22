@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { createStyleSheet } from 'jss-theme-reactor';
 import contains from 'dom-helpers/query/contains';
-import customPropTypes from 'material-ui/src/utils/customPropTypes';
-import Transition from 'material-ui/src/internal/Transition';
-import Paper from 'material-ui/src/Paper';
+import customPropTypes from 'material-ui/utils/customPropTypes';
+import Transition from 'material-ui/internal/Transition';
+import Paper from 'material-ui/Paper';
 
 function getOffsetTop(rect, vertical) {
   let offset = 0;

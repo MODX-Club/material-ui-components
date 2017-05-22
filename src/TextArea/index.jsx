@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
 import { createStyleSheet } from 'jss-theme-reactor';
-import customPropTypes from 'material-ui/src/utils/customPropTypes';
+import customPropTypes from 'material-ui/utils/customPropTypes';
 
-import {FormControl} from 'material-ui/src/Form';
-import {InputLabel} from 'material-ui/src/Input';
+import {FormControl} from 'material-ui/Form';
+import {InputLabel} from 'material-ui/Input';
 
 const defaultProps = {
 

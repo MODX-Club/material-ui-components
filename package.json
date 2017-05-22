@@ -1,14 +1,14 @@
 {
   "_args": [
   ],
-  "_from": "material-ui-components@1.4.1",
-  "_id": "material-ui-components@1.4.1",
+  "_from": "material-ui-components@1.5.1",
+  "_id": "material-ui-components@1.5.1",
   "_inCache": true,
   "_location": "/material-ui-components",
   "_nodeVersion": "7.10.0",
   "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/material-ui-components-1.4.1.tgz_1495000954514_0.22952157794497907"
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/material-ui-components-1.5.1.tgz_1495454563954_0.688708518864587"
   },
   "_npmUser": {
     "name": "fi1osof",
@@ -17,22 +17,22 @@
   "_npmVersion": "4.2.0",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "material-ui-components@1.4.1",
+    "raw": "material-ui-components@1.5.1",
     "scope": null,
     "escapedName": "material-ui-components",
     "name": "material-ui-components",
-    "rawSpec": "1.4.1",
-    "spec": "1.4.1",
+    "rawSpec": "1.5.1",
+    "spec": "1.5.1",
     "type": "version"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.4.1.tgz",
-  "_shasum": "bdfaceedee0025100eb5e0f3ccd2f8925c860229",
+  "_resolved": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.5.1.tgz",
+  "_shasum": "54b04603fe138f2a6f21655957f2e8f15a551cfb",
   "_shrinkwrap": null,
-  "_spec": "material-ui-components@1.4.1",
+  "_spec": "material-ui-components@1.5.1",
   "author": {
     "name": "Fi1osof"
   },
@@ -48,8 +48,8 @@
   "devDependencies": {},
   "directories": {},
   "dist": {
-    "shasum": "bdfaceedee0025100eb5e0f3ccd2f8925c860229",
-    "tarball": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.4.1.tgz"
+    "shasum": "54b04603fe138f2a6f21655957f2e8f15a551cfb",
+    "tarball": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.5.1.tgz"
   },
   "gitHead": "c76bd3cfab1f9af74db44d00e8019b956df0d063",
   "homepage": "https://github.com/MODX-Club/material-ui-components#readme",
@@ -74,5 +74,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.5.1"
+  "version": "1.6.0"
 }

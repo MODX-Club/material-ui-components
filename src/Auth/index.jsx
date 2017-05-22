@@ -4,10 +4,10 @@ import Dialog, {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from 'material-ui/src/Dialog';
+} from 'material-ui/Dialog';
 
-import Button from 'material-ui/src/Button';
-import TextField from 'material-ui/src/TextField';
+import Button from 'material-ui/Button';
+import TextField from 'material-ui/TextField';
 import Avatar from '../Avatar';
 
 let loginSubheaderStyle = {

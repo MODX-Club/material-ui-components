@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Button from 'material-ui/src/Button';
-import Menu, { MenuItem } from 'material-ui/src/Menu';
+import Button from 'material-ui/Button';
+import Menu, { MenuItem } from 'material-ui/Menu';
 
-import {FormControl} from 'material-ui/src/Form';
-import {InputLabel} from 'material-ui/src/Input';
-import Typography from 'material-ui/src/Typography';
+import {FormControl} from 'material-ui/Form';
+import {InputLabel} from 'material-ui/Input';
+import Typography from 'material-ui/Typography';
 
-import customPropTypes from 'material-ui/src/utils/customPropTypes';
-import { withStyles, createStyleSheet } from 'material-ui/src/styles';
+import customPropTypes from 'material-ui/utils/customPropTypes';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 const styleSheet = createStyleSheet('SelectField', (theme) => ({
   root: {
