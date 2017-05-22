@@ -6,7 +6,12 @@ class GooglePlaceAutocomplete extends Component {
 
   constructor(props) {
     super(props);
-    this.autocompleteService = new google.maps.places.AutocompleteService();
+
+    var google_map = googleMutant._mutant;
+    // window.google_map = google_map;
+
+    // this.autocompleteService = new google.maps.places.AutocompleteService();
+    this.autocompleteService = new google.maps.places.PlacesService(google_map);
     this.state = {
       dataSource: [],
       data: []
@@ -21,31 +26,44 @@ class GooglePlaceAutocomplete extends Component {
   }
 
   updateDatasource(data) {
-    if(!data || !data.length) {
-      return false;
-    }
+
+    console.log('updateDatasource', data);
+
+    // if(!data || !data.length) {
+    //   return false;
+    // }
+
+    var data = data || [];
 
     if(this.state.data) {
       this.previousData = { ...this.state.data };
     }
     this.setState({
-      dataSource: data.map(place => place.description),
+      dataSource: data.map(place => place.name),
       data
     });
+
+    if(this.props.onUpdateDatasource){
+      this.props.onUpdateDatasource(data);
+    }
   }
 
   getBounds() {
-    if(!this.props.bounds || (!this.props.bounds.ne && !this.props.bounds.south)) {
-      return undefined;
-    }
+    // if(!this.props.bounds || (!this.props.bounds.ne && !this.props.bounds.south)) {
+    //   return undefined;
+    // }
+    //
+    // if(this.props.bounds.ne && this.props.bounds.sw) {
+    //   return new google.maps.LatLngBounds(this.props.bounds.sw, this.props.bounds.ne);
+    // }
+    //
+    // return {
+    //   ...this.props.bounds
+    // };
 
-    if(this.props.bounds.ne && this.props.bounds.sw) {
-      return new google.maps.LatLngBounds(this.props.bounds.sw, this.props.bounds.ne);
-    }
+    // return map.getBounds();
 
-    return {
-      ...this.props.bounds
-    };
+    return google_map.getBounds();
   }
 
   onUpdateInput(searchText, dataSource) {
@@ -53,17 +71,18 @@ class GooglePlaceAutocomplete extends Component {
       return false;
     }
 
-    console.log('searchText', searchText);
+    // console.log('searchText', searchText);
+    // console.log('getBounds', this.getBounds());
 
     let request = {
-      input: searchText,
-      location: new google.maps.LatLng(this.props.location.lat, this.props.location.lng),
-      radius: this.props.radius,
-      types: this.props.types,
+      query: searchText,
       bounds: this.getBounds()
     };
 
-    this.autocompleteService.getPlacePredictions(request, data => this.updateDatasource(data));
+    // this.autocompleteService.getPlacePredictions(request, data => this.updateDatasource(data));
+    // this.autocompleteService.getQueryPredictions(request, data => this.updateDatasource(data));
+    // this.autocompleteService.radarSearch(request, data => this.updateDatasource(data));
+    this.autocompleteService.textSearch(request, data => this.updateDatasource(data));
   }
 
   onNewRequest(searchText, index) {

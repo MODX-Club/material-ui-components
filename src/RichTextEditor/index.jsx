@@ -198,6 +198,8 @@ export default class RichTextEditor extends Component{
 
   onChange(editorState){
 
+    console.log('onChange', editorState);
+
     if(this.props.onChange){
       var currentContent = editorState.getCurrentContent();
       var text = JSON.stringify(convertToRaw(currentContent));
@@ -207,18 +209,14 @@ export default class RichTextEditor extends Component{
 
     this.setState({editorState});
   }
-
-  componentWillReceiveProps(nextProps){
-
-    if(nextProps.content != this.props.content){
-
-      this.setState({
-        editorState: this.initEditState(nextProps.content),
-      });
-    }
-
-    return true;
-  }
+  // componentWillReceiveProps(nextProps){
+  //
+  //   if(nextProps.value != this.props.value){
+  //     this.setState({
+  //       value: nextProps.value,
+  //     });
+  //   }
+  // }
 
   componentWillMount(){
     classes = this.context.styleManager.render(styleSheet);

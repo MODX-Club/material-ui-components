@@ -71,11 +71,9 @@ export default class AutoComplete extends Component {
   // }
 
   onChange(event){
-    console.log("onChange", event.target.value);
+    // console.log("onChange", event.target.value);
 
-    if(this.props.onChange){
-      this.props.onChange(event, this.props.dataSource);
-    }
+    this.props.onChange(event, this.props.dataSource);
 
     var value = event.target.value;
 
@@ -166,19 +164,14 @@ export default class AutoComplete extends Component {
       var index = 0;
 
       this.state.data.map((item) => {
-        var i = index;
-
         items.push(<ListItem
           key={item}
           className={classes.listItem}
           button
           onTouchTap={() => {
 
-
-            // console.log('onTouchTap', i, index);
-
             if(this.props.onNewRequest){
-              this.props.onNewRequest(item, i);
+              this.props.onNewRequest(item, index);
             }
 
             this.setState({
