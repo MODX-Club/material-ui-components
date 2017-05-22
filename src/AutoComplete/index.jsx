@@ -73,7 +73,9 @@ export default class AutoComplete extends Component {
   onChange(event){
     console.log("onChange", event.target.value);
 
-    this.props.onChange(event, this.props.dataSource);
+    if(this.props.onChange){
+      this.props.onChange(event, this.props.dataSource);
+    }
 
     var value = event.target.value;
 
