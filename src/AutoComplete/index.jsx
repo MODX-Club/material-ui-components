@@ -45,65 +45,30 @@ export default class AutoComplete extends Component {
 
     super(props);
 
-
     this.state = {
       input_id: props.input_id,
       popover_id: props.popover_id,
       searchText: props.searchText,
       open: false,
-      // dataSource: props.dataSource,
     };
   }
-
-  // componentWillReceiveProps(nextProps){
-  //
-  // }
 
   componentWillMount() {
 
     classes = this.context.styleManager.render(styleSheet);
   }
 
-  // onChange(event){
-  //   console.log("onChange", event.target.value, this.props.onChange);
-  //
-  //
-  // }
 
   onChange(event){
     // console.log("onChange", event.target.value);
 
-    this.props.onChange(event, this.props.dataSource);
+    if(this.props.onChange){
+      this.props.onChange(event, this.props.dataSource);
+    }
 
     var value = event.target.value;
 
     var result = this.props.dataSource;
-    //
-    // if(
-    //   this.props.dataSource
-    //   && value != ""
-    // ){
-    //   for(var i in this.props.dataSource){
-    //
-    //     var item = this.props.dataSource[i];
-    //
-    //     if(!item){
-    //       continue;
-    //     }
-    //
-    //     if(item.match(value)){
-    //       result.push(item);
-    //
-    //       if(this.props.maxSearchResults > 0 && this.props.maxSearchResults == result.length){
-    //
-    //         console.log("dataSource", item);
-    //         break;
-    //       }
-    //     }
-    //   }
-    // }
-
-    // console.log('result', result);
 
     this.setState({
       searchText: value,
@@ -112,47 +77,6 @@ export default class AutoComplete extends Component {
       open: true,
     });
   }
-
-  // onChange(event){
-  //   console.log("onChange", event.target.value);
-  //
-  //   var value = event.target.value;
-  //
-  //   var result = [];
-  //
-  //   if(
-  //     this.props.dataSource
-  //     && value != ""
-  //   ){
-  //     for(var i in this.props.dataSource){
-  //
-  //       var item = this.props.dataSource[i];
-  //
-  //       if(!item){
-  //         continue;
-  //       }
-  //
-  //       if(item.match(value)){
-  //         result.push(item);
-  //
-  //         if(this.props.maxSearchResults > 0 && this.props.maxSearchResults == result.length){
-  //
-  //           console.log("dataSource", item);
-  //           break;
-  //         }
-  //       }
-  //     }
-  //   }
-  //
-  //   // console.log('result', result);
-  //
-  //   this.setState({
-  //     searchText: value,
-  //     data: result,
-  //     anchorEl: event.target,
-  //     open: true,
-  //   });
-  // }
 
 
   render(){
@@ -164,6 +88,8 @@ export default class AutoComplete extends Component {
       var index = 0;
 
       this.state.data.map((item) => {
+        var i = index;
+
         items.push(<ListItem
           key={item}
           className={classes.listItem}
@@ -171,7 +97,7 @@ export default class AutoComplete extends Component {
           onTouchTap={() => {
 
             if(this.props.onNewRequest){
-              this.props.onNewRequest(item, index);
+              this.props.onNewRequest(item, i);
             }
 
             this.setState({
