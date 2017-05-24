@@ -107,7 +107,6 @@ class ProfileDialogAuthStepFindUser extends Component {
 
           <TextField
             label={lexicon.loginName + (error != '' ? ' (' + error + ')' : '')}
-            ref="login"
             key="login"
             name="login"
             error={error != ''}
@@ -134,34 +133,6 @@ class ProfileDialogAuthStepFindUser extends Component {
 
 class ProfileDialogAuthStepAuth extends Component {
 
-
-  // constructor(props){
-  //   super(props);
-  //
-  //   this.state = {
-  //     login: props.scope.state.login,
-  //     show_forgot_text: false,
-  //   }
-  // }
-
-  // componentDidMount(){
-  //   this.refs.AuthPassword.handleInputFocus();
-  // }
-
-  // componentWillReceiveProps(nextProps){
-  //   if(nextProps.errors){
-  //     var errors = this.state.errors || {}
-  //     Object.assign(errors, nextProps.errors);
-  //
-  //     this.setState({errors});
-  //   }
-  // }
-
-  // resetErrors = () => {
-  //   this.setState({
-  //     show_forgot_text: "",
-  //   });
-  // }
 
   render(){
     let scope = this.props.scope;
@@ -246,7 +217,6 @@ class ProfileDialogAuthStepAuth extends Component {
 
       content = <TextField
         label={lexicon.passwordName + (error != "" ? ' ('+ error +')' : "")}
-        ref="AuthPassword"
         key="password"
         type="password"
         name="password"
@@ -732,7 +702,6 @@ export default class Auth extends Component {
         dialogContent = (
           <ProfileDialogAuthStepFindUser
             key="find_user"
-            ref="stepOne"
             errors={this.state.errors}
             scope={this}
             documentActions={this.props.documentActions}

@@ -1,14 +1,14 @@
 {
   "_args": [
   ],
-  "_from": "material-ui-components@1.5.1",
-  "_id": "material-ui-components@1.5.1",
+  "_from": "material-ui-components@^1.3.0",
+  "_id": "material-ui-components@1.6.1",
   "_inCache": true,
   "_location": "/material-ui-components",
   "_nodeVersion": "7.10.0",
   "_npmOperationalInternal": {
     "host": "s3://npm-registry-packages",
-    "tmp": "tmp/material-ui-components-1.5.1.tgz_1495454563954_0.688708518864587"
+    "tmp": "tmp/material-ui-components-1.6.1.tgz_1495491648695_0.32871952606365085"
   },
   "_npmUser": {
     "name": "fi1osof",
@@ -17,22 +17,22 @@
   "_npmVersion": "4.2.0",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "material-ui-components@1.5.1",
+    "raw": "material-ui-components@^1.3.0",
     "scope": null,
     "escapedName": "material-ui-components",
     "name": "material-ui-components",
-    "rawSpec": "1.5.1",
-    "spec": "1.5.1",
-    "type": "version"
+    "rawSpec": "^1.3.0",
+    "spec": ">=1.3.0 <2.0.0",
+    "type": "range"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.5.1.tgz",
-  "_shasum": "54b04603fe138f2a6f21655957f2e8f15a551cfb",
+  "_resolved": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.6.1.tgz",
+  "_shasum": "c667e1a2430b3a44b8deca25441b6f72e85f2648",
   "_shrinkwrap": null,
-  "_spec": "material-ui-components@1.5.1",
+  "_spec": "material-ui-components@^1.3.0",
+  "_where": "/var/www/vhosts/erustt.ru/assets/components/modxsite/templates/erustt/v2",
   "author": {
     "name": "Fi1osof"
   },
@@ -42,14 +42,15 @@
   "dependencies": {
     "@material/snackbar": "^0.1.9",
     "jss-theme-reactor": "^0.11.1",
-    "react": "^15.5.4"
+    "react": "^15.5.4",
+    "react-addons-shallow-compare": "^15.5.2"
   },
   "description": "Components for material-ui-alpha",
   "devDependencies": {},
   "directories": {},
   "dist": {
-    "shasum": "54b04603fe138f2a6f21655957f2e8f15a551cfb",
-    "tarball": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.5.1.tgz"
+    "shasum": "c667e1a2430b3a44b8deca25441b6f72e85f2648",
+    "tarball": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.6.1.tgz"
   },
   "gitHead": "c76bd3cfab1f9af74db44d00e8019b956df0d063",
   "homepage": "https://github.com/MODX-Club/material-ui-components#readme",
@@ -74,5 +75,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.6.0"
+  "version": "1.6.1"
 }

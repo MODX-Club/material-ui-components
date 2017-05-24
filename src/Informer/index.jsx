@@ -43,7 +43,9 @@ export default class Informer extends Prototype {
           message: "",
         });
 
-        this.props.documentActions.InformerMessageShowed();
+        if(this.props.documentActions){
+          this.props.documentActions.InformerMessageShowed();
+        }
 
       } else {;
 
