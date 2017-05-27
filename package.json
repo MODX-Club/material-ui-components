@@ -31,8 +31,7 @@
   "_resolved": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.6.1.tgz",
   "_shasum": "c667e1a2430b3a44b8deca25441b6f72e85f2648",
   "_shrinkwrap": null,
-  "_spec": "material-ui-components@^1.3.0",
-  "_where": "/var/www/vhosts/erustt.ru/assets/components/modxsite/templates/erustt/v2",
+  "_spec": "material-ui-components@^1.3.0", 
   "author": {
     "name": "Fi1osof"
   },
