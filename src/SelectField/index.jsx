@@ -17,7 +17,7 @@ const styleSheet = createStyleSheet('SelectField', (theme) => ({
     marginTop: 10,
     marginBottom: 10,
     minHeight: 20,
-    padding: '6px 0',
+    padding: '5px 0',
     border: 'none',
     outline: 'none',
     borderBottom: `1px solid ${theme.palette.text.divider}`,
@@ -31,6 +31,12 @@ const styleSheet = createStyleSheet('SelectField', (theme) => ({
     // fontFamily: theme.typography.fontFamily,
     // color: theme.palette.text.secondary,
     // lineHeight: 1,
+  },
+  labelEmpty: {
+    color: theme.palette.text.secondary,
+  },
+  disabled: {
+    color: theme.palette.text.disabled,
   },
 }));
 
@@ -49,6 +55,10 @@ export default class SelectField extends Component {
   button = undefined;
 
   handleClick = (event) => {
+    if(this.props.disabled){
+      return;
+    }
+
     this.setState({ open: true, anchorEl: event.currentTarget });
   };
 
@@ -105,6 +115,9 @@ export default class SelectField extends Component {
 
     var title;
 
+
+    var labelClasses = ["input", classes.input, this.props.className];
+
     if(this.props.value && this.props.value != ""){
 
       if(this.props.options && this.props.options.length){
@@ -123,6 +136,11 @@ export default class SelectField extends Component {
     }
     else{
       title = this.props.placeholder;
+      labelClasses.push(classes.labelEmpty);
+    }
+
+    if(this.props.disabled){
+      labelClasses.push(classes.disabled);
     }
 
     return <FormControl
@@ -142,7 +160,7 @@ export default class SelectField extends Component {
         null}
       <Typography
         onTouchTap={this.handleClick}
-        className={["input", classes.input, this.props.className].join(" ")}
+        className={labelClasses.join(" ")}
       >{title}</Typography>
       <Menu
         anchorEl={this.state.anchorEl}
