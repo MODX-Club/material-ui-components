@@ -198,8 +198,8 @@ export default class DataTimePicker extends Component {
             this.setState({
                 day:     day,
                 weekday: moment(`${day}`, 'DD').format('dddd'),
-            // }, this.clickOnOK);
-            });
+            }, this.clickOnOK)
+            ;
         };
 
         this._checkFunc('handleChangeDay', { day: day }, f);

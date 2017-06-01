@@ -1,17 +1,5 @@
 {
-  "_args": [
-    [
-      {
-        "raw": "material-ui-components@1.7.2",
-        "scope": null,
-        "escapedName": "material-ui-components",
-        "name": "material-ui-components",
-        "rawSpec": "1.7.2",
-        "spec": "1.7.2",
-        "type": "version"
-      },
-      "/var/www/vhosts/sportpoisk.ru/assets/components/modxsite/templates/map/v4"
-    ]
+  "_args": [ 
   ],
   "_from": "material-ui-components@1.7.2",
   "_id": "material-ui-components@1.7.2",
@@ -44,8 +32,7 @@
   "_resolved": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.7.2.tgz",
   "_shasum": "591382afbdd3535034e19c92e2c2be4d9698da44",
   "_shrinkwrap": null,
-  "_spec": "material-ui-components@1.7.2",
-  "_where": "/var/www/vhosts/sportpoisk.ru/assets/components/modxsite/templates/map/v4",
+  "_spec": "material-ui-components@1.7.2", 
   "author": {
     "name": "Fi1osof"
   },
@@ -88,5 +75,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.7.2"
+  "version": "1.7.3"
 }

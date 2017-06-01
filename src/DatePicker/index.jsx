@@ -24,6 +24,8 @@ const defaultProps = {
   label: "",
   value: new Date(),
   open: false,
+  format: "YYYY-MM-DD",
+  // format: "YYYY-MM-DD HH:mm",
 }
 
 
@@ -93,7 +95,7 @@ export default class DatePicker extends Component{
     return <div>
       <TextField
         {...this.props}
-        value={this.state.value || ""}
+        value={this.state.value && moment(this.state.value).isValid() && moment(this.state.value).format(this.props.format)|| ""}
         onClick={() => {
           if(!this.state.open){
             this.setState({
@@ -110,7 +112,8 @@ export default class DatePicker extends Component{
         paperClassName={classes.DialogPaper}
       >
         <DataTimePicker
-          type={false}
+          {...this.props}
+          type={true}
           {...date}
           clickOnCancel={() => {
             this.setState({
