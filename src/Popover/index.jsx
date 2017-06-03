@@ -12,6 +12,7 @@ import contains from 'dom-helpers/query/contains';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Transition from 'material-ui/internal/Transition';
 import Paper from 'material-ui/Paper';
+import Modal from 'material-ui/internal/Modal';
 
 function getOffsetTop(rect, vertical) {
   let offset = 0;
@@ -397,31 +398,32 @@ export default class Popover extends Component {
 
     const classes = this.context.styleManager.render(styleSheet);
 
-    return (open === true ? <Transition
-        in={open}
-        enteredClassName={enteredClassName}
-        enteringClassName={enteringClassName}
-        exitedClassName={exitedClassName}
-        exitingClassName={exitingClassName}
-        onEnter={this.handleEnter}
-        onEntering={this.handleEntering}
-        onEntered={onEntered}
-        onExit={this.handleExit}
-        onExiting={onExiting}
-        onExited={onExited}
-        role={role}
-        onRequestTimeout={this.handleRequestTimeout}
-        transitionAppear
-      >
-        <Paper
-          data-mui-test="Popover"
-          className={classNames(classes.popover, className)}
-          elevation={elevation}
-          {...other}
+    return (open === true ? 
+      <Transition
+          in={open}
+          enteredClassName={enteredClassName}
+          enteringClassName={enteringClassName}
+          exitedClassName={exitedClassName}
+          exitingClassName={exitingClassName}
+          onEnter={this.handleEnter}
+          onEntering={this.handleEntering}
+          onEntered={onEntered}
+          onExit={this.handleExit}
+          onExiting={onExiting}
+          onExited={onExited}
+          role={role}
+          onRequestTimeout={this.handleRequestTimeout}
+          transitionAppear
         >
-          {children}
-        </Paper>
-      </Transition>
+          <Paper
+            data-mui-test="Popover"
+            className={classNames(classes.popover, className)}
+            elevation={elevation}
+            {...other}
+          >
+            {children}
+          </Paper>
+        </Transition>
       : null
     );
   }
