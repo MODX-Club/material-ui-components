@@ -71,7 +71,7 @@ export default class SelectField extends Component {
     classes = this.context.styleManager.render(styleSheet);
   }
 
-  onChange(event){
+  onChange(event, item){
 
     var target = event.target;
 
@@ -88,7 +88,7 @@ export default class SelectField extends Component {
     target.name = this.props.name;
 
     if(this.props.onChange){
-      this.props.onChange(event, value);
+      this.props.onChange(event, value, item);
     }
 
     this.setState({
@@ -107,7 +107,7 @@ export default class SelectField extends Component {
           key={value}
           value={value}
           onTouchTap={(event) => {
-            this.onChange(event);
+            this.onChange(event, item);
           }}
         >{item.title || item}</MenuItem>);
       });
