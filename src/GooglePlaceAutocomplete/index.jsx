@@ -2,28 +2,32 @@
 import React, { Component } from 'react';
 import AutoComplete from '../AutoComplete';
 
+
 class GooglePlaceAutocomplete extends Component {
 
   constructor(props) {
     super(props);
 
-    var google_map = googleMutant._mutant;
+    // var google_map = googleMutant._mutant;
     // window.google_map = google_map;
 
+    let {map} = this.props;
+
     // this.autocompleteService = new google.maps.places.AutocompleteService();
-    this.autocompleteService = new google.maps.places.PlacesService(google_map);
+    this.autocompleteService = new google.maps.places.PlacesService(map);
     this.state = {
       dataSource: [],
-      data: []
+      data: [],
+      searchText: '',
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(this.props.searchText !== nextProps.searchText) {
-      this.onUpdateInput(nextProps.searchText, this.state.dataSource);
-      this.onInputChange(nextProps.searchText);
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if(this.props.searchText !== nextProps.searchText) {
+  //     this.onUpdateInput(nextProps.searchText, this.state.dataSource);
+  //     this.onInputChange(nextProps.searchText);
+  //   }
+  // }
 
   updateDatasource(data) {
 
@@ -63,7 +67,9 @@ class GooglePlaceAutocomplete extends Component {
 
     // return map.getBounds();
 
-    return google_map.getBounds();
+    let {map} = this.props;
+
+    return map.getBounds();
   }
 
   onUpdateInput(searchText, dataSource) {
@@ -85,7 +91,7 @@ class GooglePlaceAutocomplete extends Component {
     this.autocompleteService.textSearch(request, data => this.updateDatasource(data));
   }
 
-  onNewRequest(searchText, index) {
+  onNewRequest = (searchText, index) => {
 
     console.log('GooglePlaceAutocomplete onNewRequest', searchText, index);
 
@@ -100,21 +106,32 @@ class GooglePlaceAutocomplete extends Component {
     this.props.onNewRequest(data[index], searchText, index);
   }
 
-  onInputChange(searchText, dataSource, params) {
-    this.props.onChange({target: {value: searchText}}, dataSource, params);
-  }
+  // onInputChange(searchText, dataSource, params) {
+
+  //   console.log('onInputChange', searchText, dataSource, params);
+
+  //   this.props.onChange({target: {value: searchText}}, dataSource, params);
+  // }
 
   render() {
-    const {location, radius, bounds, ...autoCompleteProps} = this.props; // eslint-disable-line no-unused-vars
+    const {location, radius, bounds, ...autoCompleteProps} = this.props; // eslint-disable-line no-unused-vars 
 
     return (
       <AutoComplete
         {...autoCompleteProps}
         ref={this.props.getRef}
         filter={this.props.filter}
-        onUpdateInput={this.onInputChange.bind(this)}
+        // onUpdateInput={this.onInputChange.bind(this)}
         dataSource={this.state.dataSource}
-        onNewRequest={this.onNewRequest.bind(this)}
+        // onNewRequest={this.onNewRequest}
+        onNewRequest={(a,b) => {
+          console.log('onNewRequest', a,b);
+          // this.onNewRequest
+        }}
+        onChange={(event) => {
+          console.log('onChange', event.target, event.target.value);
+          this.onUpdateInput(event.target.value, this.state.dataSource);
+        }}
       />
     );
   }
@@ -123,8 +140,8 @@ class GooglePlaceAutocomplete extends Component {
 GooglePlaceAutocomplete.propTypes = {
   location: React.PropTypes.object,
   radius: React.PropTypes.number,
-  onNewRequest: React.PropTypes.func.isRequired,
-  onChange: React.PropTypes.func.isRequired,
+  // onNewRequest: React.PropTypes.func.isRequired,
+  // onChange: React.PropTypes.func.isRequired,
   getRef: React.PropTypes.func,
   types: React.PropTypes.arrayOf(React.PropTypes.string),
   bounds: React.PropTypes.object

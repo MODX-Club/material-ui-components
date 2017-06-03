@@ -309,6 +309,10 @@ export default class Popover extends Component {
       transformOrigin.horizontal += diff;
     }
 
+    if(this.props.positions){
+      return this.props.positions;
+    }
+
     return {
       top: `${top}px`,
       left: `${left}px`,

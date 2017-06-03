@@ -94,7 +94,9 @@ export default class AutoComplete extends Component {
           key={item}
           className={classes.listItem}
           button
-          onTouchTap={() => {
+          onTouchTap={(event) => {
+
+            console.log('onTouchTap', event);
 
             if(this.props.onNewRequest){
               this.props.onNewRequest(item, i);
@@ -136,10 +138,13 @@ export default class AutoComplete extends Component {
         open={this.state.open && items && items.length > 0}
         onRequestClose={this.handleRequestClose}
         modal={false}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+        positions={{
+          top: 'inherit',
         }}
+        // anchorOrigin={{
+        //   vertical: 'bottom',
+        //   horizontal: 'left',
+        // }}
       >
         <List>
           {items}

@@ -1,6 +1,5 @@
 {
-  "_args": [ 
-  ],
+  "_args": [],
   "_from": "material-ui-components@1.7.2",
   "_id": "material-ui-components@1.7.2",
   "_inCache": true,
@@ -32,7 +31,7 @@
   "_resolved": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.7.2.tgz",
   "_shasum": "591382afbdd3535034e19c92e2c2be4d9698da44",
   "_shrinkwrap": null,
-  "_spec": "material-ui-components@1.7.2", 
+  "_spec": "material-ui-components@1.7.2",
   "author": {
     "name": "Fi1osof"
   },
@@ -43,7 +42,8 @@
     "@material/snackbar": "^0.1.9",
     "jss-theme-reactor": "^0.11.1",
     "react": "^15.5.4",
-    "react-addons-shallow-compare": "^15.5.2"
+    "react-addons-shallow-compare": "^15.5.2",
+    "react-dom": "^15.5.4"
   },
   "description": "Components for material-ui-alpha",
   "devDependencies": {},
@@ -75,5 +75,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.7.3"
+  "version": "1.8.0"
 }
