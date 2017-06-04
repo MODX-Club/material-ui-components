@@ -393,6 +393,7 @@ export default class Popover extends Component {
       onExiting,
       onExited,
       elevation,
+      positions,
       ...other
     } = this.props;
 

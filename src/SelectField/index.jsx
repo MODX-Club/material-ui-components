@@ -114,6 +114,11 @@ export default class SelectField extends Component {
   render() { 
     var options = [];
 
+    let {
+      PopoverProps,
+      ...other
+    } = this.props;
+
     if(this.props.options && this.props.options.length){
       this.props.options.map((item) => {
         var value = typeof item.value != "undefined" ? item.value : item.title || item;
@@ -188,6 +193,8 @@ export default class SelectField extends Component {
           // positions={{
           //   top: 'inherit',
           // }}
+
+          {...PopoverProps}
         >
           <List
             className={[classes.List, this.props.listClassName].join(" ")}

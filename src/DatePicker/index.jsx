@@ -47,7 +47,7 @@ export default class DatePicker extends Component{
     super(props);
 
     this.state = {
-      value: this.prepareValue(props.value),
+      // value: this.prepareValue(props.value),
       open: props.open,
     }
   }
@@ -56,16 +56,20 @@ export default class DatePicker extends Component{
     return date && moment(date).format('YYYY-MM-DD HH:mm') || "";
   }
 
-  componentVillReceivProps(nextProps, nestState){
+  // componentWillReceiveProps(nextProps, nestState){
 
-    if(nextProps.value != this.props.value){
-      this.setState({
-        value: this.prepareValue(nextProps.value),
-      });
-    }
+  //   console.log('componentVillReceivProps', nextProps.value, this.props.value);
 
-    return true;
-  }
+  //   if(nextProps.value != this.props.value){
+  //     console.log('componentVillReceivProps', nextProps.value, this.props.value);
+
+  //     this.setState({
+  //       value: this.prepareValue(nextProps.value),
+  //     });
+  //   }
+
+  //   return true;
+  // }
 
   componentWillMount(){
 
@@ -79,9 +83,9 @@ export default class DatePicker extends Component{
       hours: "15",
     }
 
-    if(this.state.value){
+    if(this.props.value){
 
-      var d = moment(this.state.value, "YYYY-MM-DD HH:mm");
+      var d = moment(this.props.value, "YYYY-MM-DD HH:mm");
 
       date = {
         year: d.format('YYYY'),
@@ -95,7 +99,7 @@ export default class DatePicker extends Component{
     return <div>
       <TextField
         {...this.props}
-        value={this.state.value && moment(this.state.value).isValid() && moment(this.state.value).format(this.props.format)|| ""}
+        value={this.props.value && moment(this.props.value).isValid() && moment(this.props.value).format(this.props.format)|| ""}
         onClick={() => {
           if(!this.state.open){
             this.setState({
@@ -112,30 +116,22 @@ export default class DatePicker extends Component{
         paperClassName={classes.DialogPaper}
       >
         <DataTimePicker
-          {...this.props}
           type={true}
-          {...date}
           clickOnCancel={() => {
             this.setState({
               open: false,
             })
           }}
           clickOnOK={(datePicker) => {
-            /*console.log('clickOnOK', datePicker.stateToDate());
-            console.log('stateToDate', datePicker.stateToDate());
-            console.log('stateToDate date', datePicker.stateToDate().format("YYYY-MM-DD HH:mm"));*/
 
-            var value = datePicker.stateToDate().format("YYYY-MM-DD HH:mm");
+            // var value = datePicker.stateToDate().format("YYYY-MM-DD HH:mm");
 
             this.setState({
               open: false,
-              value: value,
-            }, () => {
-              if(this.props.onChange){
-                this.props.onChange(value);
-              }
+              // value: value,
             });
           }}
+          {...this.props}
         />
       </Dialog>
     </div>

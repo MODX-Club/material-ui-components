@@ -18,6 +18,8 @@ import { Calendar, Clock } from '../';
 
 
 const defaultProps = {
+  showHeader: true,
+  showActionButtons: true,
   showCalendar: true,
   showClock: true,
   type: true,
@@ -274,7 +276,52 @@ export default class DataTimePicker extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this._props2state(nextProps);
+
+      if(nextProps.value && nextProps.value != this.props.value){
+        let date = moment(nextProps.value, 'YYYY-MM-DD HH:mm');
+        if(date.isValid()){
+          let newDate = {
+            year: date.format("YYYY"),
+            month: date.format("MMMM"),
+            weekday: date.format("dddd"),
+            day: date.format("DD"),
+            hours: date.format("HH"),
+            minutes: date.format("mm"),
+          };
+
+          this.setState(newDate); 
+        }
+        // _checkProp('day', day);
+        // _checkProp('hours', hours);
+        // _checkProp('minutes', minutes);
+        // _checkProp('month', month);
+        // _checkProp('show', show);
+        // _checkProp('showCalendar', showCalendar);
+        // _checkProp('showClock', showClock);
+        // _checkProp('type', type);
+        // _checkProp('weekday', weekday);
+        // _checkProp('year', year);
+      }
+      // else{
+
+      //   this._props2state(nextProps);
+      // }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+      if(
+        prevState.year != this.state.year
+        || prevState.month != this.state.month
+        || prevState.day != this.state.day
+        || prevState.weekday != this.state.weekday
+        || prevState.hours != this.state.hours
+        || prevState.minutes != this.state.minutes
+      ){
+
+        if(this.props.onChange){
+          this.props.onChange(this.stateToDate());
+        }
+      }
     }
 
 
@@ -312,23 +359,37 @@ export default class DataTimePicker extends Component {
       }
     }
 
-    button = (
-      <div className="modal-btns">
-          <Button
-            primary
-            onTouchTap={ clickOnCancel }
-          >
-              Отмена
-          </Button>
+    if(this.props.showActionButtons){
+      button = (
+        <div className="modal-btns">
+            <Button
+              accent
+              onTouchTap={ clickOnOK }
+            >
+              Закрыть
+            </Button>
+        </div>
+      );
+    }
+    // if(this.props.showActionButtons){
+    //   button = (
+    //     <div className="modal-btns">
+    //         <Button
+    //           primary
+    //           onTouchTap={ clickOnCancel }
+    //         >
+    //             Отмена
+    //         </Button>
 
-          <Button
-            accent
-            onTouchTap={ clickOnOK }
-          >
-              OK
-          </Button>
-      </div>
-    );
+    //         <Button
+    //           accent
+    //           onTouchTap={ clickOnOK }
+    //         >
+    //             OK
+    //         </Button>
+    //     </div>
+    //   );
+    // }
 
     let buttonCalendar,
       buttonClock;
@@ -363,23 +424,30 @@ export default class DataTimePicker extends Component {
         elevation={4}
       >
           <div className="c-datepicker c-datepicker--open">
-            { buttonClock }
-            { buttonCalendar }
-              <div className="c-datepicker__header">
+            {this.props.showHeader 
+              ? 
+              <div
+                className="datetimepicker--header"
+              >
+                { buttonClock }
+                { buttonCalendar }
+                <div className="c-datepicker__header">
                   <div className="c-datepicker__header-day">
                       <span className="js-day">{ weekday }</span>
                   </div>
                   <div className="c-datepicker__header-date">
-                              <span
-                                className="c-datepicker__header-date__month js-date-month">{ month } { year }</span>
+                      <span className="c-datepicker__header-date__month js-date-month">{ month } { year }</span>
                       <span className="c-datepicker__header-date__day js-date-day">{ day }</span>
                       <span className="c-datepicker__header-date__time js-date-time">
-                                  <span className="c-datepicker__header-date__hours js-date-hours">{ hours }</span>:
-                                  <span
-                                    className="c-datepicker__header-date__minutes js-date-minutes">{ minutes }</span>
-                              </span>
+                        <span className="c-datepicker__header-date__hours js-date-hours">{ hours }</span>:
+                          <span className="c-datepicker__header-date__minutes js-date-minutes">{ minutes }</span>
+                      </span>
                   </div>
+                </div>
               </div>
+              : 
+              null
+            }
 
             { body }
 
