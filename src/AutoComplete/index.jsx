@@ -3,11 +3,15 @@ import React, {Component} from 'react';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 
+import Grid from 'material-ui/Grid';
 import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
+import AddIcon from 'material-ui-icons/AddCircle';
 
 import Popover from '../Popover';
 
-import _ from 'lodash';
+import lodash from 'lodash';
 
 import List, {
   ListItem,
@@ -17,14 +21,21 @@ import List, {
 } from 'material-ui/List';
 
 const defaultProps = {
-  input_id: _.uniqueId('autocomplete_'),
-  popover_id: _.uniqueId('popover_'),
+  // input_id: lodash.uniqueId('autocomplete_'),
+  popover_id: lodash.uniqueId('popover_'),
   label: "",
+  connector_url: "",
+  connector_path: "",
   maxSearchResults: 10,
   searchText:"",
   dataSource:[],
-  data:[],
   anchorEl: null,
+  local: true,    // If remote, get data from server
+  value: '',
+  title: '',
+  valueField: 'id',
+  valueFieldType: 'int',
+  displayField: 'name',
 }
 
 const styleSheet = createStyleSheet('AutoComplete', () => ({
@@ -46,52 +57,199 @@ export default class AutoComplete extends Component {
     super(props);
 
     this.state = {
-      input_id: props.input_id,
+      // input_id: props.input_id,
+      value: props.value,
+      title: props.title,
       popover_id: props.popover_id,
       searchText: props.searchText,
+      dataSource: props.dataSource,
       open: false,
+      inRequest: false,
     };
+
+    console.log('AutoComplete', this.state, props);
   }
 
-  componentWillMount() {
+  loadData = query => {
 
-    classes = this.context.styleManager.render(styleSheet);
+    if(
+      this.state.inRequest === true
+      || this.props.local
+      || !this.props.connector_url
+      || !this.props.connector_path
+    ){
+      return;
+    }
+
+    var body = new FormData();
+
+    var data = {
+      format: "json",
+      query: query,
+    };
+
+    for(var i in data){
+
+      var value = data[i];
+
+      if(value === null || value === undefined){
+        continue;
+      }
+
+      body.append(i, value);
+    };
+
+
+    var newState = {
+      errors: {
+      },
+      inRequest: false,
+    }
+
+    fetch(this.props.connector_url +'?pub_action='+ this.props.connector_path +'getdata',{
+      credentials: 'same-origin',
+      method: "POST",
+      body: body,
+    })
+      .then(function (response) {
+
+        return response.json()
+      })
+      .then(function (data) {
+
+        if(data.success){
+
+          var options = [];
+
+          data.object.map((item) => {
+
+            var value = item[this.props.valueField] || '';
+            var title = item[this.props.displayField] || '';
+
+            if(this.props.valueFieldType == 'int'){
+              value = Number(value);
+            }
+
+            options.push({
+              value: value,
+              title: title,
+            });
+          });
+
+          newState.dataSource = options;
+
+          console.log('AutoComplite newState', newState);
+        }
+        else{
+
+          if(data.data && data.data.length){
+
+            data.data.map(function(error){
+              if(error.msg != ''){
+                errors[error.id] = error.msg;
+              }
+            }, this);
+          }
+          console.error('Request failed', error, errors);
+        }
+
+        // if(!this.state.errors){
+        //   this.state.errors = {};
+        // }
+
+        // Object.assign(this.state.errors, errors.login_error);
+
+        this.setState(newState);
+
+      }.bind(this))
+      .catch((error) => {
+          console.error('Request failed', error);
+          this.setState(newState);
+        }
+      );
+
+    this.setState({
+      inRequest: true,
+    });
   }
 
 
   onChange(event){
-    // console.log("onChange", event.target.value);
+    console.log("onChange", event.target.value);
 
-    if(this.props.onChange){
-      this.props.onChange(event, this.props.dataSource);
-    }
+    this.props.onChange && this.props.onChange(event);
 
     var value = event.target.value;
 
-    var result = this.props.dataSource;
+    // var result = this.props.dataSource;
+
+    this.loadData(value);
 
     this.setState({
       searchText: value,
-      data: result,
+      // data: result,
       anchorEl: event.target,
       open: true,
     });
   }
 
 
+  componentWillMount() {
+
+    classes = this.context.styleManager.render(styleSheet);
+  }
+
+  componentDidMount(){
+    this.loadData();
+  }
+
+
+  componentWillReceiveProps(nextProps){
+
+    var newState = {};
+
+    if(nextProps.dataSource != this.props.dataSource){
+      newState.dataSource = nextProps.dataSource;
+    }
+
+    if(nextProps.value != this.props.value){
+      newState.value = nextProps.value;
+    }
+
+    if(nextProps.title != this.props.title){
+      newState.title = nextProps.title;
+    }
+
+    this.setState(newState);
+
+    return true;
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(!lodash.isEqual(this.state.dataSource || '', prevState.dataSource || '')){
+      this.props.onDataChange && this.props.onDataChange(this.state.dataSource);
+    }
+  }
+
+
   render(){
+
+    let {dataSource, value, title} = this.state;
+    let {Editor, EditorProps, handleEditorOpen} = this.props;
 
     var items = [];
 
-    if(this.state.data && this.state.data.length){
+    if(dataSource && dataSource.length){
 
       var index = 0;
 
-      this.state.data.map((item) => {
-        var i = index;
+      dataSource.map((item) => {
+
+        var value = item.value;
+        var title = item.title || item.value;
 
         items.push(<ListItem
-          key={item}
+          key={index}
           className={classes.listItem}
           button
           onTouchTap={(event) => {
@@ -99,38 +257,115 @@ export default class AutoComplete extends Component {
             console.log('onTouchTap', event);
 
             if(this.props.onNewRequest){
-              this.props.onNewRequest(item, i);
+              // this.props.onNewRequest(item, index);
+              this.props.onNewRequest(event, value, item);
             }
 
             this.setState({
-              searchText: "",
+              value: value,
+              title: title,
               open: false,
             });
           }}
         >
-          <ListItemText primary={item} />
+          <ListItemText primary={title} />
         </ListItem>);
 
         index++;
       });
     }
 
+    console.log('dataSource', dataSource, items);
+
     return <div
       className={["textfield-wrapper", this.props.className].join(" ")}
     >
-      <TextField
-        aria-owns={this.state.popover_id}
-        aria-haspopup="true"
-        label={this.props.label}
-        error={this.props.error}
-        value={this.state.searchText}
-        onChange={(event) => {
-          this.onChange(event);
-        }}
-        style={{
-          zIndex: 1000,
-        }}
-      />
+      {/* this.state.open 
+        ? 
+          <TextField
+            aria-owns={this.state.popover_id}
+            aria-haspopup="true"
+            label={this.props.label}
+            error={this.props.error}
+            value={this.state.searchText}
+            onChange={(event) => {
+              this.onChange(event);
+            }}
+            // style={{
+            //   zIndex: 1000,
+            // }}
+          />
+        : 
+
+        <TextField
+          aria-owns={this.state.popover_id}
+          aria-haspopup="true"
+          label={this.props.label}
+          error={this.props.error}
+          value={this.state.searchText}
+          onChange={(event) => {
+            this.onChange(event);
+          }}
+          // style={{
+          //   zIndex: 1000,
+          // }}
+        />
+      */}
+
+
+      <Grid 
+        container
+        align="flex-end"
+        gutter={0}
+      >
+        <Grid
+          item
+          xs
+        >
+
+          <TextField
+            aria-owns={this.state.popover_id}
+            aria-haspopup="true"
+            label={this.props.label}
+            error={this.props.error}
+            value={this.state.open ? this.state.searchText : this.state.title}
+            onChange={(event) => {
+              this.onChange(event);
+            }}
+            onFocus={(event) => {
+              this.setState({
+                open: true,
+                searchText: this.state.title || this.state.value || '',
+              });
+            }}
+            // style={{
+            //   zIndex: 1000,
+            // }}
+          />
+        </Grid>
+
+        {Editor
+          ?
+            <Grid
+              item
+            >
+              <IconButton
+                onTouchTap={handleEditorOpen}
+              >
+                <AddIcon />
+              </IconButton>
+
+              <Editor
+                {...EditorProps}
+                // open={this.state.EditorOpen}
+                // onSave={(event) => {console.log('AutoComplete onSave', event)}}
+                onSave={(event) => {console.log('AutoComplete onSave', event)}}
+              />
+            </Grid> 
+          :
+          null
+        }
+      </Grid>
 
       <Popover
         id={this.state.popover_id}
