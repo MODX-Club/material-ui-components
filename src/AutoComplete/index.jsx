@@ -177,7 +177,7 @@ export default class AutoComplete extends Component {
   onChange(event){
     console.log("onChange", event.target.value);
 
-    this.props.onChange && this.props.onChange(event);
+    // this.props.onChange && this.props.onChange(event);
 
     var value = event.target.value;
 
@@ -226,8 +226,26 @@ export default class AutoComplete extends Component {
   }
 
   componentDidUpdate(prevProps, prevState){
+
     if(!lodash.isEqual(this.state.dataSource || '', prevState.dataSource || '')){
       this.props.onDataChange && this.props.onDataChange(this.state.dataSource);
+    }
+
+    if(
+      prevState.value != this.state.value
+      || prevState.title != this.state.title
+    ){
+      this.props.onChange && this.props.onChange({
+        target: {
+          name: this.props.name,
+          value: this.state.value,
+        },
+      }, 
+      this.state.value, 
+      {
+        value: this.state.value,
+        title: this.state.title,
+      });
     }
   }
 
