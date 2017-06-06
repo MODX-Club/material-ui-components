@@ -65,6 +65,8 @@ export default class Helper extends Component{
 
 	render(){
 
+    let {closeIconProps, ...other} = this.props;
+
 		return <IconButton
       onTouchTap={() => this.setState({
       	open: true,
@@ -82,7 +84,12 @@ export default class Helper extends Component{
               <Typography type="title" colorInherit className={classes.flex}>
                 Справка
               </Typography>
-              <Button onTouchTap={this.handleRequestClose}>Закрыть</Button>
+              <Button 
+                onTouchTap={this.handleRequestClose}
+                {...closeIconProps}
+              >
+                Закрыть
+              </Button>
             </Toolbar>
           </AppBar>
           
