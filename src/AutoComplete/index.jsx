@@ -8,6 +8,7 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import AddIcon from 'material-ui-icons/AddCircle';
+import ViewIcon from 'material-ui-icons/RemoveRedEye';
 
 import Popover from '../Popover';
 
@@ -38,13 +39,16 @@ const defaultProps = {
   displayField: 'name',
 }
 
-const styleSheet = createStyleSheet('AutoComplete', () => ({
+const styleSheet = createStyleSheet('AutoComplete', (theme) => ({
   menu: {},
   content: {
   },
   listItem: {
     paddingTop: 6,
     paddingBottom: 6,
+  },
+  disabled: {
+    color: theme.palette.text.disabled
   },
 }));
 
@@ -67,7 +71,7 @@ export default class AutoComplete extends Component {
       inRequest: false,
     };
 
-    console.log('AutoComplete', this.state, props);
+    // console.log('AutoComplete', this.state, props);
   }
 
   loadData = query => {
@@ -130,15 +134,19 @@ export default class AutoComplete extends Component {
               value = Number(value);
             }
 
-            options.push({
+            var option = item;
+
+            Object.assign(option, {
               value: value,
               title: title,
             });
+
+            options.push(option);
           });
 
           newState.dataSource = options;
 
-          console.log('AutoComplite newState', newState);
+          // console.log('AutoComplite newState', newState);
         }
         else{
 
@@ -175,7 +183,7 @@ export default class AutoComplete extends Component {
 
 
   onChange(event){
-    console.log("onChange", event.target.value);
+    // console.log("onChange", event.target.value);
 
     // this.props.onChange && this.props.onChange(event);
 
@@ -249,11 +257,24 @@ export default class AutoComplete extends Component {
     }
   }
 
+  handleEditorOpen = (event) => {
+    let {handleEditorOpen} = this.props;
+    let {dataSource} = this.state;
+
+    let item = this.state.dataSource.find((item) => {return item[this.props.valueField] == this.state.value});
+
+    // console.log('handleEditorOpen 2', item);
+
+    if(handleEditorOpen){
+      handleEditorOpen(item);
+    }
+  }
+
 
   render(){
 
+    let {Editor, EditorProps, handleEditorOpen, disabled} = this.props;
     let {dataSource, value, title} = this.state;
-    let {Editor, EditorProps, handleEditorOpen} = this.props;
 
     var items = [];
 
@@ -272,7 +293,7 @@ export default class AutoComplete extends Component {
           button
           onTouchTap={(event) => {
 
-            console.log('onTouchTap', event);
+            // console.log('onTouchTap', event);
 
             if(this.props.onNewRequest){
               // this.props.onNewRequest(item, index);
@@ -293,7 +314,7 @@ export default class AutoComplete extends Component {
       });
     }
 
-    console.log('dataSource', dataSource, items);
+    // console.log('dataSource', dataSource, items);
 
     return <div
       className={["textfield-wrapper", this.props.className].join(" ")}
@@ -342,15 +363,25 @@ export default class AutoComplete extends Component {
         >
 
           <TextField
+            // inputClassName={[disabled ? classes.disabled : ""].join(" ")}
+            disabled={disabled}
             aria-owns={this.state.popover_id}
             aria-haspopup="true"
             label={this.props.label}
             error={this.props.error}
             value={this.state.open ? this.state.searchText : this.state.title}
             onChange={(event) => {
+              if(disabled){
+                return;
+              }
+
               this.onChange(event);
             }}
             onFocus={(event) => {
+              if(disabled){
+                return;
+              }
+
               this.setState({
                 open: true,
                 searchText: this.state.title || this.state.value || '',
@@ -367,17 +398,33 @@ export default class AutoComplete extends Component {
             <Grid
               item
             >
-              <IconButton
-                onTouchTap={handleEditorOpen}
-              >
-                <AddIcon />
-              </IconButton>
+              {this.state.value 
+                ?
+                <IconButton
+                  onTouchTap={this.handleEditorOpen}
+                >
+                  <ViewIcon />
+                </IconButton>
+                : null
+              }
+
+
+              {!disabled 
+                ?
+                <IconButton
+                  onTouchTap={this.handleEditorOpen}
+                >
+                  <AddIcon />
+                </IconButton>
+                : null
+              }
+
+             
 
               <Editor
                 {...EditorProps}
                 // open={this.state.EditorOpen}
                 // onSave={(event) => {console.log('AutoComplete onSave', event)}}
-                onSave={(event) => {console.log('AutoComplete onSave', event)}}
               />
             </Grid> 
           :

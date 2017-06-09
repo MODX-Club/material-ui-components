@@ -65,12 +65,14 @@ export default class Helper extends Component{
 
 	render(){
 
-    let {closeIconProps, ...other} = this.props;
+    let {closeIconProps, iconProps, contrastIcons, ...other} = this.props;
 
 		return <IconButton
       onTouchTap={() => this.setState({
       	open: true,
-      })} 
+      })}
+      contrast={contrastIcons || true}
+      {...iconProps}
     >
       <Help /> 
       <Dialog
@@ -86,6 +88,7 @@ export default class Helper extends Component{
               </Typography>
               <Button 
                 onTouchTap={this.handleRequestClose}
+                contrast={contrastIcons || true}
                 {...closeIconProps}
               >
                 Закрыть
