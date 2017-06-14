@@ -25,7 +25,9 @@ const styleSheet = createStyleSheet('FullScreenDialog', {
 
 var classes;
 
-const defaultProps = {}
+const defaultProps = {
+  contrastIcons: true,
+}
 
 export default class Helper extends Component{
 
@@ -71,7 +73,7 @@ export default class Helper extends Component{
       onTouchTap={() => this.setState({
       	open: true,
       })}
-      contrast={contrastIcons || true}
+      contrast={contrastIcons}
       {...iconProps}
     >
       <Help /> 
