@@ -41,8 +41,11 @@ let lexicon = {
 }
 
 const defaultProps = {
+  open: false,
+  step: 1,
   showRegForm: true,
   allowPasswordRecovery: true,
+  connector_url: '/assets/components/modxsite/connectors/connector.php',
 }
 
 class ProfileDialogAuthStepFindUser extends Component {
@@ -353,24 +356,30 @@ class ProfileDialogAuthStepRegister extends Component {
 
 export default class Auth extends Component {
 
-  state = {
-    wait_for_response: false,
-    errors: {},
-    actions: [],
-    is_forgot: true,
-    show_forgot_text: false,
-    step: 1,
-    login: '',
-    avatar: '',
-    email: '',
-    password: '',
+
+  constructor(props){
+    
+    super(props);
+
+    this.state = {
+      wait_for_response: false,
+      errors: {},
+      actions: [],
+      is_forgot: true,
+      show_forgot_text: false,
+      step: props.step,
+      login: '',
+      avatar: '',
+      email: '',
+      password: '',
+    }
   }
 
   modalClose(){
     this.setState({
       step: 1,
     });
-    this.props.userActions.loginCanceled();
+    this.props.loginCanceled();
   }
 
   findUser(){
@@ -410,10 +419,7 @@ export default class Auth extends Component {
         return response.json()
       })
       .then(function (data) {
-
-
-        // console.log('headers', headers);
-        // console.log('data', data);
+ 
         if(data.success){
 
           if(data.object && data.object.id){
@@ -432,19 +438,13 @@ export default class Auth extends Component {
               }
             }
 
-            this.props.documentActions.addInformerMessage(data.message || "Пользователь не был найден");
+            this.props.addInformerMessage(data.message || "Пользователь не был найден");
           }
         }
         else{
 
-          this.props.documentActions.addInformerMessage(data.message || "Ошибка выполнения запроса");
-        }
-
-        // if(!this.state.errors){
-        //   this.state.errors = {};
-        // }
-
-        // Object.assign(this.state.errors, errors.login_error);
+          this.props.addInformerMessage(data.message || "Ошибка выполнения запроса");
+        } 
 
         this.setState(newStata);
 
@@ -452,6 +452,7 @@ export default class Auth extends Component {
       .catch((error) => {
           console.error('Request failed', error);
           this.setState(newStata);
+          this.props.addInformerMessage("Ошибка выполнения запроса");
         }
       );
 
@@ -495,15 +496,11 @@ export default class Auth extends Component {
         return response.json()
       })
       .then(function (data) {
-
-        // console.log('headers', headers);
-        // console.log('data', data);
+ 
         if(data.success){
-          this.props.userActions.GetOwnData();
-          this.props.userActions.loginComplete();
-
-          // newState.open = false;
-          // newState.step = 0;
+          this.props.GetOwnData();
+          this.props.loginComplete();
+ 
           newState.email = "";
           newState.password = "";
         }
@@ -511,7 +508,7 @@ export default class Auth extends Component {
 
           errors.login_error = "Ошибка";
 
-          this.props.documentActions.addInformerMessage(data.message || "Ошибка выполнения запроса");
+          this.props.addInformerMessage(data.message || "Ошибка выполнения запроса");
         }
 
         this.setState(newState);
@@ -519,7 +516,7 @@ export default class Auth extends Component {
       }.bind(this))
       .catch((error) => {
         console.log('Request failed', error);
-        this.props.documentActions.addInformerMessage("Ошибка выполнения запроса");
+        this.props.addInformerMessage("Ошибка выполнения запроса");
         this.setState(newState);
       });
 
@@ -533,9 +530,7 @@ export default class Auth extends Component {
 
     if(this.state.wait_for_response === true){
       return;
-    }
-
-    console.log('registerSubmit', this);
+    } 
 
     var body = new FormData();
 
@@ -567,8 +562,8 @@ export default class Auth extends Component {
       .then(function (data) {
 
         if(data.success === true){
-          this.props.userActions.GetOwnData();
-          this.props.userActions.loginComplete();
+          this.props.GetOwnData();
+          this.props.loginComplete();
 
           Object.assign(newState, {
             step: 1,
@@ -588,17 +583,15 @@ export default class Auth extends Component {
             }, this);
           }
 
-          this.props.documentActions.addInformerMessage(data.message || "Ошибка выполнения запроса");
-        }
-
-        // console.log('newState', this, newState);
+          this.props.addInformerMessage(data.message || "Ошибка выполнения запроса");
+        } 
 
         this.setState(newState);
 
       }.bind(this))
       .catch((error) => {
         console.error('Request failed', error);
-        this.props.documentActions.addInformerMessage("Ошибка выполнения запроса");
+        this.props.addInformerMessage("Ошибка выполнения запроса");
       });
 
 
@@ -686,16 +679,32 @@ export default class Auth extends Component {
     this.setState(newState);
   }
 
+  componentWillReceiveProps(nextProps){
 
-  render(){
+    let newState = {}
 
-    // console.log('RENDER DIALOG',this.state, this.state)
+    if(
+      nextProps.step != this.props.step
+      && nextProps.step != this.state.step
+    ){
+      Object.assign(newState, { 
+        errors: {},
+        step: nextProps.step,
+      });
+    }
+
+    this.setState(newState);
+
+    return true;
+  }
+
+  render(){ 
 
     if(this.props.open !== true){
       return null;
     }
 
-    var dialogContent;
+    let dialogContent = null;
 
     switch(this.state.step){
       case 1:
@@ -704,13 +713,12 @@ export default class Auth extends Component {
             key="find_user"
             errors={this.state.errors}
             scope={this}
-            documentActions={this.props.documentActions}
             onChange={(e) => {
               this.onChange(e)
             }}
             evt={{
               clearError: this.clearError,
-              loginCanceled: this.props.userActions.loginCanceled,
+              loginCanceled: this.props.loginCanceled,
             }}
             {...this.props}
           />
@@ -725,34 +733,37 @@ export default class Auth extends Component {
             scope={this}
             password={this.state.password}
             allowPasswordRecovery={this.props.allowPasswordRecovery}
-            documentActions={this.props.documentActions}
             onChange={(e) => {
               this.onChange(e)
             }}
             evt={{
               clearError: this.clearError,
-              loginCanceled: this.props.userActions.loginCanceled,
+              loginCanceled: this.props.loginCanceled,
             }} />
         );
         break;
 
       case 3:
-        dialogContent = (
-          <ProfileDialogAuthStepRegister
-            key="register"
-            scope={this}
-            errors={this.state.errors}
-            onChange={(e) => {
-              this.onChange(e)
-            }}
-            registerSubmit={() => {
-              this.registerSubmit();
-            }}
-            evt={{
-              clearError: this.clearError,
-              loginCanceled: this.props.userActions.loginCanceled,
-            }} />
-        );
+
+        if(this.props.showRegForm){
+          dialogContent = (
+            <ProfileDialogAuthStepRegister
+              key="register"
+              scope={this}
+              errors={this.state.errors}
+              onChange={(e) => {
+                this.onChange(e)
+              }}
+              registerSubmit={() => {
+                this.registerSubmit();
+              }}
+              evt={{
+                clearError: this.clearError,
+                loginCanceled: this.props.loginCanceled,
+              }} />
+          );
+        }
+
         break;
 
       default:
@@ -764,3 +775,11 @@ export default class Auth extends Component {
 }
 
 Auth.defaultProps = defaultProps;
+
+Auth.propTypes = {
+  loginCanceled: PropTypes.func.isRequired,
+  GetOwnData: PropTypes.func.isRequired,
+  loginComplete: PropTypes.func.isRequired,
+  addInformerMessage: PropTypes.func.isRequired,
+  connector_url: PropTypes.string.isRequired,
+}; 
