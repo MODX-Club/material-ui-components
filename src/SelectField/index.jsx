@@ -58,6 +58,8 @@ var classes;
 const defaultProps = {
   // placeholder: "Выберите из списка",
   placeholder: "",
+  allowEmpty: false,
+  emptyText: "Выбрать из списка",
 }
 
 export default class SelectField extends Component {
@@ -113,17 +115,48 @@ export default class SelectField extends Component {
 
   render() { 
     var options = [];
+    var items = [];
 
     let {
       PopoverProps,
+      allowEmpty,
+      emptyText,
       ...other
     } = this.props;
 
+
+
     if(this.props.options && this.props.options.length){
+
+      if(allowEmpty){
+        options.push({
+          value: '0',
+          title: emptyText,
+        });
+
+        // items.push(<ListItem
+        //   key={items.length}
+        //   value='false'
+        //   title='qwdqwdwq'
+        //   button
+        //   onTouchTap={(event) => {
+        //     this.onChange(event, {
+        //       value: 'false',
+        //       title: 'sdfsdf',
+        //     });
+        //   }}
+        // >Выбрать из списка</ListItem>);
+      }
+
       this.props.options.map((item) => {
+        options.push(item);
+      });
+
+
+      options.map((item) => {
         var value = typeof item.value != "undefined" ? item.value : item.title || item;
-        options.push(<ListItem
-          key={value}
+        items.push(<ListItem
+          key={items.length}
           value={value}
           button
           onTouchTap={(event) => {
@@ -140,13 +173,17 @@ export default class SelectField extends Component {
 
     if(this.props.value && this.props.value != ""){
 
-      if(this.props.options && this.props.options.length){
-        for(var i in this.props.options){
-          var item = this.props.options[i] || {};
+      if(options && options.length){
+        for(var i in options){
+          var item = options[i] || {};
 
           if(item.value && item.value == this.props.value){
             title = item.title;
+
+            break;
           }
+
+          // console.log('item', item);
         }
       }
 
@@ -199,7 +236,7 @@ export default class SelectField extends Component {
           <List
             className={[classes.List, this.props.listClassName].join(" ")}
           >
-            {options}
+            {items}
           </List>
         </Popover>
       </div>
