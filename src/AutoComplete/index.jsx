@@ -257,13 +257,27 @@ export default class AutoComplete extends Component {
     }
   }
 
+  handleAddItem = (event) => {
+    let {handleAddItem} = this.props;
+
+    if(handleAddItem){
+      handleAddItem();
+    }
+  }
+
+
   handleEditorOpen = (event) => {
     let {handleEditorOpen} = this.props;
     let {dataSource} = this.state;
 
-    let item = this.state.dataSource.find((item) => {return item[this.props.valueField] == this.state.value});
+    let item = this.state.dataSource.find((item) => {
+      // console.log('item', item, this.state.value, item[this.props.valueField]);
+      return item[this.props.valueField] == this.state.value;
+    });
 
-    // console.log('handleEditorOpen 2', item);
+    // console.log('handleEditorOpen 2', item, this.props.valueField);
+    // console.log('handleEditorOpen 3', this.state.dataSource);
+    // console.log('handleEditorOpen 4', this, this.state.value);
 
     if(handleEditorOpen){
       handleEditorOpen(item);
@@ -273,22 +287,22 @@ export default class AutoComplete extends Component {
 
   render(){
 
-    let {Editor, EditorProps, handleEditorOpen, disabled} = this.props;
+    let {Editor, EditorProps, handleEditorOpen, disabled, valueField, displayField} = this.props;
     let {dataSource, value, title} = this.state;
 
     var items = [];
 
     if(dataSource && dataSource.length){
 
-      var index = 0;
-
       dataSource.map((item) => {
 
-        var value = item.value;
-        var title = item.title || item.value;
+        var value = item[valueField];
+        var title = item[displayField] || value;
+
+        // console.log('items map', item, value, title);
 
         items.push(<ListItem
-          key={index}
+          key={items.length}
           className={classes.listItem}
           button
           onTouchTap={(event) => {
@@ -309,8 +323,6 @@ export default class AutoComplete extends Component {
         >
           <ListItemText primary={title} />
         </ListItem>);
-
-        index++;
       });
     }
 
@@ -398,7 +410,7 @@ export default class AutoComplete extends Component {
             <Grid
               item
             >
-              {this.state.value 
+              {this.state.value || this.props.item && this.props.item._isDirty
                 ?
                 <IconButton
                   onTouchTap={this.handleEditorOpen}
@@ -412,7 +424,7 @@ export default class AutoComplete extends Component {
               {!disabled 
                 ?
                 <IconButton
-                  onTouchTap={this.handleEditorOpen}
+                  onTouchTap={this.handleAddItem}
                 >
                   <AddIcon />
                 </IconButton>
