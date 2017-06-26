@@ -399,6 +399,12 @@ export default class AutoComplete extends Component {
                 searchText: this.state.title || this.state.value || '',
               });
             }}
+            onBlur={(event) => {
+              // console.log('onBlur', this);
+              this.setState({
+                open: false,
+              });
+            }}
             // style={{
             //   zIndex: 1000,
             // }}
