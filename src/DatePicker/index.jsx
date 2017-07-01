@@ -9,6 +9,7 @@ import {DataTimePicker, Calendar, Clock } from './src';
 
 import TextField from 'material-ui/TextField';
 
+import 'moment/src/locale/ru';
 import moment from 'moment';
 
 import Dialog, {

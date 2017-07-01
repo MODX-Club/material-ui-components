@@ -9,10 +9,8 @@ import React, { Component, PropTypes } from 'react';
 import Button from 'material-ui/Button';
 import Paper from 'material-ui/Paper';
 
-import moment from 'moment';
 import 'moment/locale/ru';
-
-moment.locale('ru');
+import moment from 'moment';
 
 import { Calendar, Clock } from '../';
 

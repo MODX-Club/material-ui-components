@@ -6,6 +6,8 @@
 
 import React, { Component, PropTypes } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
+
+import 'moment/src/locale/ru';
 import moment from 'moment';
 
 import Week from './Week';
