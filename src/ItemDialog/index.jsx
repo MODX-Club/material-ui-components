@@ -37,13 +37,14 @@ export default class ItemDialog extends Component {
       helper,
       open,
       ...other
-    } = this.props; 
+    } = this.props;
 
     return <Dialog
       fullScreen
       open={open}
       onRequestClose={this.props.onRequestClose}
       transition={<Slide direction="down" />}
+      {...other}
     >
       <AppBar className={classes.dialogAppBar}>
         <Toolbar>
