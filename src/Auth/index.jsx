@@ -438,12 +438,18 @@ export default class Auth extends Component {
               }
             }
 
-            this.props.addInformerMessage(data.message || "Пользователь не был найден");
+            this.props.addInformerMessage({
+              text: data.message || "Пользователь не был найден",
+              autohide: 3000,
+            });
           }
         }
         else{
 
-          this.props.addInformerMessage(data.message || "Ошибка выполнения запроса");
+          this.props.addInformerMessage({
+            text: data.message || "Ошибка выполнения запроса",
+            autohide: 4000,
+          });
         } 
 
         this.setState(newStata);
@@ -452,7 +458,11 @@ export default class Auth extends Component {
       .catch((error) => {
           console.error('Request failed', error);
           this.setState(newStata);
-          this.props.addInformerMessage("Ошибка выполнения запроса");
+
+          this.props.addInformerMessage({
+            text: "Ошибка выполнения запроса",
+            autohide: 4000,
+          });
         }
       );
 
@@ -508,7 +518,10 @@ export default class Auth extends Component {
 
           errors.login_error = "Ошибка";
 
-          this.props.addInformerMessage(data.message || "Ошибка выполнения запроса");
+          this.props.addInformerMessage({
+            text: data.message || "Ошибка выполнения запроса",
+            autohide: 3000,
+          });
         }
 
         this.setState(newState);
@@ -516,7 +529,11 @@ export default class Auth extends Component {
       }.bind(this))
       .catch((error) => {
         console.log('Request failed', error);
-        this.props.addInformerMessage("Ошибка выполнения запроса");
+
+          this.props.addInformerMessage({
+            text: "Ошибка выполнения запроса",
+            autohide: 4000,
+          });
         this.setState(newState);
       });
 
@@ -583,7 +600,11 @@ export default class Auth extends Component {
             }, this);
           }
 
-          this.props.addInformerMessage(data.message || "Ошибка выполнения запроса");
+
+          this.props.addInformerMessage({
+            text: data.message || "Ошибка выполнения запроса",
+            autohide: 3000,
+          });
         } 
 
         this.setState(newState);
@@ -591,7 +612,11 @@ export default class Auth extends Component {
       }.bind(this))
       .catch((error) => {
         console.error('Request failed', error);
-        this.props.addInformerMessage("Ошибка выполнения запроса");
+
+        this.props.addInformerMessage({
+          text: "Ошибка выполнения запроса",
+          autohide: 4000,
+        });
       });
 
 
@@ -645,7 +670,11 @@ export default class Auth extends Component {
           });
         }
         else{
-          alert(data.message || "Ошибка выполнения запроса");
+
+          this.props.addInformerMessage({
+            text: data.message || "Ошибка выполнения запроса",
+            autohide: 3000,
+          });
         }
 
         this.setState(newState);
