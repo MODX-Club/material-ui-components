@@ -1,4 +1,32 @@
 {
+  "_from": "material-ui-components@^1.13.1",
+  "_id": "material-ui-components@1.13.3",
+  "_inBundle": false,
+  "_integrity": "sha512-SCLvzcVo4xQPu9uIe3S+fMVTwn5MoGLfwDbVbJV9PzyGhvUsPA7ODVvXEXgnhjuoibpoRDg3vA5DZHKUtpd3DQ==",
+  "_location": "/material-ui-components",
+  "_phantomChildren": {
+    "css-vendor": "0.3.8",
+    "murmurhash-js": "1.0.0",
+    "warning": "3.0.0"
+  },
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "material-ui-components@^1.13.1",
+    "name": "material-ui-components",
+    "escapedName": "material-ui-components",
+    "rawSpec": "^1.13.1",
+    "saveSpec": null,
+    "fetchSpec": "^1.13.1"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/material-ui-components/-/material-ui-components-1.13.3.tgz",
+  "_shasum": "69ef3502244be9da63c8d799fe182c585d740cae",
+  "_spec": "material-ui-components@^1.13.1",
+  "_where": "/var/www/vhosts/sportpoisk.ru/assets/components/modxsite/templates/map/v5",
   "author": {
     "name": "Fi1osof"
   },
