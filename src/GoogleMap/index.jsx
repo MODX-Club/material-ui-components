@@ -25,7 +25,7 @@ const defaultProps = {
 }
 
 const styleSheet = createStyleSheet('GoogleMap', (theme) => ({
-  root: {
+  GoogleMapRoot: {
   	position: 'relative',
   	height: 400,
   },
@@ -43,6 +43,7 @@ export default class GoogleMap extends Component{
 
 		this.state = { 
 			// map: null,
+      mapTilesLoaded: false,
 		}
 	}
  
@@ -105,6 +106,8 @@ export default class GoogleMap extends Component{
 
     var map = new google.maps.Map(element, options); 
 
+    google.maps.event.addListenerOnce(map, 'tilesloaded', () => this.onTilesLoaded());
+
    //  var centerControlDiv = this.AutoComplete;
 
 	  // map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
@@ -114,34 +117,59 @@ export default class GoogleMap extends Component{
 	  // console.log('map.controls', map.controls);
 
 
-	 //  var Latlng;
 
-	 //  if(this.props.markerLat && this.props.markerLng){
-	 //  	Latlng = new google.maps.LatLng(this.props.markerLat, this.props.markerLng);
-	 //  }
-	 //  else{
-	 //  	Latlng = map.center;
-	 //  }
+    // else{
+    //  Latlng = map.center;
+    // }
 
-		// var marker = new google.maps.Marker({
-	 //    position: Latlng, 
-	 //    map: map, 
-	 //    draggable:true
-		// });
-		// google.maps.event.addListener(
-	 //    marker,
-	 //    'drag',
-	 //    () => {
-	 //      var lat = marker.position.lat();
-	 //      var lng = marker.position.lng();
 
-	 //      if(this.props.onMarkerChangePosition){
-	 //      	this.props.onMarkerChangePosition(lat, lng);
-	 //      }
-	 //    }
-		// );
+    this.setState({map, google}, () => {
 
-    this.setState({map, google});
+      this.createNewMarker();
+    });
+  }
+
+  /*
+    Видимая часть была загружена (плитка)
+  */
+  onTilesLoaded(){
+    this.setState({
+      mapTilesLoaded: true,
+    });
+  }
+
+
+  /*
+    Создаем новый маркер, чтобы был
+  */
+  createNewMarker(){
+
+    let {map, google} = this.state;
+
+    var Latlng;
+
+    if(this.props.markerLat && this.props.markerLng){
+      Latlng = new google.maps.LatLng(this.props.markerLat, this.props.markerLng);
+
+      
+      var marker = new google.maps.Marker({
+        position: Latlng, 
+        map: map, 
+        draggable:true
+      });
+      google.maps.event.addListener(
+        marker,
+        'drag',
+        () => {
+          var lat = marker.position.lat();
+          var lng = marker.position.lng();
+
+          if(this.props.onMarkerChangePosition){
+            this.props.onMarkerChangePosition(lat, lng);
+          }
+        }
+      );
+    }
   }
 
 
@@ -186,14 +214,17 @@ export default class GoogleMap extends Component{
 		let {
 			googleOptions,
 			onMarkerChangePosition,
-			children,
+      children,
+      markerLat,
+      markerLng,
+			containerProps,
 			...other,
 		} = this.props;
 
 		return <div
-			className={[classes.root, this.props.className].join(" ")}
+			className={[classes.GoogleMapRoot, this.props.className].join(" ")}
       ref={(div) => { this.GoogleMapContainer = div; }}	
-      {...other}	
+      {...containerProps}	
 		> 
 			{children}
 

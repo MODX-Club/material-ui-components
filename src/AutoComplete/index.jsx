@@ -401,9 +401,16 @@ export default class AutoComplete extends Component {
             }}
             onBlur={(event) => {
               // console.log('onBlur', this);
-              this.setState({
-                open: false,
-              });
+
+              /*
+                Делаем небольшую паузу, чтобы и было время уловить клик по элементу,
+                и меню закрывалось при клике за пределы поля
+              */
+              setTimeout(() => {
+                this.setState({
+                  open: false,
+                });
+              }, 250);
             }}
             // style={{
             //   zIndex: 1000,
