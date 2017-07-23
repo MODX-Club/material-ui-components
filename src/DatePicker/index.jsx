@@ -133,6 +133,7 @@ export default class DatePicker extends Component{
             });
           }}
           {...this.props}
+          {...date}
         />
       </Dialog>
     </div>
