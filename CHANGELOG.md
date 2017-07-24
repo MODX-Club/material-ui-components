@@ -15,3 +15,8 @@
 1.13.7
 ================================================
 - Added popoverStyle
+
+1.13.8
+================================================
+- AutoComplete added displayFormattedField
+- GooglePlaceAutocomplete fix

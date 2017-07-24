@@ -43,7 +43,21 @@ class GooglePlaceAutocomplete extends Component {
       this.previousData = { ...this.state.data };
     }
     this.setState({
-      dataSource: data.map(place => place.name),
+      dataSource: data.map(place => {
+
+        Object.assign(place, {
+          formattedName: <span><b>{place.name}</b>, {place.formatted_address}</span>,
+        });
+
+        // return {
+        //   id: place.id,
+        //   name: place.name,
+        //   // name: [place.name, place.formatted_address].join(" "),
+        //   formattedName: <span><b>{place.name}</b>, {place.formatted_address}</span>,
+        // }
+
+        return place;
+      }),
       data
     });
 
@@ -72,12 +86,55 @@ class GooglePlaceAutocomplete extends Component {
     return map.getBounds();
   }
 
-  onUpdateInput(searchText, dataSource) {
+  onUpdateInput(event) {
+
+    // console.log('searchText event', event);
+    // console.log('searchText event target', event.target);
+
+    let {
+      target,
+    } = event;
+
+    let {
+      name,
+      value,
+    } = target || {};
+
+    // console.log('searchText name, value ', name, value);
+
+    this.setState({
+      searchText: value,
+    }, () => this.request());
+
+    // console.log('dataSource', dataSource);
+    
+    // if (!searchText.length || !this.autocompleteService) {
+    //   return false;
+    // }
+
+    // // console.log('getBounds', this.getBounds());
+
+    // let request = {
+    //   query: searchText,
+    //   bounds: this.getBounds()
+    // };
+
+    // // this.autocompleteService.getPlacePredictions(request, data => this.updateDatasource(data));
+    // // this.autocompleteService.getQueryPredictions(request, data => this.updateDatasource(data));
+    // // this.autocompleteService.radarSearch(request, data => this.updateDatasource(data));
+    // this.autocompleteService.textSearch(request, data => this.updateDatasource(data));
+  }
+
+  request(){
+
+    let {
+      searchText,
+    } = this.state;
+
     if (!searchText.length || !this.autocompleteService) {
       return false;
     }
-
-    // console.log('searchText', searchText);
+    
     // console.log('getBounds', this.getBounds());
 
     let request = {
@@ -91,19 +148,26 @@ class GooglePlaceAutocomplete extends Component {
     this.autocompleteService.textSearch(request, data => this.updateDatasource(data));
   }
 
-  onNewRequest = (searchText, index) => {
+  // onNewRequest = (searchText, index) => {
+  onNewRequest = (event, value, item) => {
 
-    console.log('GooglePlaceAutocomplete onNewRequest', searchText, index);
+    // console.log('GooglePlaceAutocomplete onNewRequest', event, value, item);
 
-    if(index === -1) {
-      return false;
-    }
+    let {
+      onNewRequest,
+    } = this.props;
 
-    console.log('GooglePlaceAutocomplete onNewRequest 2', searchText, index);
+    onNewRequest && onNewRequest(event, value, item);
 
-    const data = this.previousData || this.state.data;
+    // if(index === -1) {
+    //   return false;
+    // }
 
-    this.props.onNewRequest(data[index], searchText, index);
+    // console.log('GooglePlaceAutocomplete onNewRequest 2', searchText, index);
+
+    // const data = this.previousData || this.state.data;
+
+    // this.props.onNewRequest(data[index], searchText, index);
   }
 
   // onInputChange(searchText, dataSource, params) {
@@ -114,23 +178,30 @@ class GooglePlaceAutocomplete extends Component {
   // }
 
   render() {
-    const {location, radius, bounds, ...autoCompleteProps} = this.props; // eslint-disable-line no-unused-vars 
+    const {
+      location, 
+      radius, 
+      bounds, 
+      ...autoCompleteProps
+    } = this.props; // eslint-disable-line no-unused-vars 
 
     return (
       <AutoComplete
+        closeOnBlur={false}
         {...autoCompleteProps}
         ref={this.props.getRef}
         filter={this.props.filter}
         // onUpdateInput={this.onInputChange.bind(this)}
+        onUpdateInput={this.onUpdateInput.bind(this)}
         dataSource={this.state.dataSource}
-        // onNewRequest={this.onNewRequest}
-        onNewRequest={(a,b) => {
-          console.log('onNewRequest', a,b);
-          // this.onNewRequest
-        }}
+        onNewRequest={this.onNewRequest}
+        // onNewRequest={(a,b,c) => {
+        //   console.log('AutoComplete onNewRequest', a,b,c);
+        //   // this.onNewRequest
+        // }}
         onChange={(event) => {
-          console.log('onChange', event.target, event.target.value);
-          this.onUpdateInput(event.target.value, this.state.dataSource);
+          // console.log('AutoComplete onChange', event.target, event.target.value);
+          // this.onUpdateInput(event.target.value, this.state.dataSource);
         }}
       />
     );

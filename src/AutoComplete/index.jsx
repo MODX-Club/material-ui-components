@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import PropTypes from 'prop-types';
+
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 
@@ -37,6 +39,12 @@ const defaultProps = {
   valueField: 'id',
   valueFieldType: 'int',
   displayField: 'name',
+  displayFormattedField: 'formattedName',
+  closeOnBlur: true,
+}
+
+const propTypes = {
+  closeOnBlur: PropTypes.bool,
 }
 
 const styleSheet = createStyleSheet('AutoComplete', (theme) => ({
@@ -183,7 +191,7 @@ export default class AutoComplete extends Component {
 
 
   onChange(event){
-    // console.log("onChange", event.target.value);
+    console.log("onChange", event.target.value);
 
     this.props.onUpdateInput && this.props.onUpdateInput(event);
 
@@ -294,7 +302,10 @@ export default class AutoComplete extends Component {
       disabled, 
       valueField, 
       displayField,
+      displayFormattedField,
       popoverStyle,
+      onBlur,
+      closeOnBlur,
       ...other
     } = this.props;
 
@@ -341,7 +352,7 @@ export default class AutoComplete extends Component {
             });
           }}
         >
-          <ListItemText primary={title} />
+          <ListItemText primary={item[displayFormattedField] || title} />
         </ListItem>);
       });
     }
@@ -426,11 +437,15 @@ export default class AutoComplete extends Component {
                 Делаем небольшую паузу, чтобы и было время уловить клик по элементу,
                 и меню закрывалось при клике за пределы поля
               */
-              setTimeout(() => {
-                this.setState({
-                  open: false,
-                });
-              }, 250);
+              if(closeOnBlur){
+                setTimeout(() => {
+                  this.setState({
+                    open: false,
+                  });
+                }, 250);
+              }
+
+              return onBlur ? onBlur(event) : true;
             }}
             // style={{
             //   zIndex: 1000,
@@ -502,6 +517,7 @@ export default class AutoComplete extends Component {
 }
 
 AutoComplete.defaultProps = defaultProps;
+AutoComplete.propTypes = propTypes;
 
 AutoComplete.contextTypes = {
   styleManager: customPropTypes.muiRequired,
