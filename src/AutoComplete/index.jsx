@@ -287,10 +287,30 @@ export default class AutoComplete extends Component {
 
   render(){
 
-    let {Editor, EditorProps, handleEditorOpen, disabled, valueField, displayField} = this.props;
-    let {dataSource, value, title} = this.state;
+    let {
+      Editor, 
+      EditorProps, 
+      handleEditorOpen, 
+      disabled, 
+      valueField, 
+      displayField,
+      popoverStyle,
+      ...other
+    } = this.props;
+
+    let {
+      dataSource, 
+      value, 
+      title
+    } = this.state;
 
     var items = [];
+
+    popoverStyle = popoverStyle || {};
+
+    popoverStyle = Object.assign({
+      maxHeight: 300,
+    }, popoverStyle);
 
     if(dataSource && dataSource.length){
 
@@ -466,6 +486,7 @@ export default class AutoComplete extends Component {
         positions={{
           top: 'inherit',
         }}
+        style={popoverStyle}
         // anchorOrigin={{
         //   vertical: 'bottom',
         //   horizontal: 'left',
