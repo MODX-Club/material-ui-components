@@ -20,3 +20,7 @@
 ================================================
 - AutoComplete added displayFormattedField
 - GooglePlaceAutocomplete fix
+
+1.14.0
+================================================
+- Added YandexAutoComplete

@@ -82,7 +82,7 @@ export default class AutoComplete extends Component {
     // console.log('AutoComplete', this.state, props);
   }
 
-  loadData = query => {
+  loadData(query){
 
     if(
       this.state.inRequest === true
@@ -191,7 +191,7 @@ export default class AutoComplete extends Component {
 
 
   onChange(event){
-    console.log("onChange", event.target.value);
+    // console.log("onChange", event.target.value);
 
     this.props.onUpdateInput && this.props.onUpdateInput(event);
 
@@ -199,13 +199,13 @@ export default class AutoComplete extends Component {
 
     // var result = this.props.dataSource;
 
-    this.loadData(value);
-
     this.setState({
       searchText: value,
       // data: result,
       anchorEl: event.target,
       open: true,
+    }, () => {
+      this.loadData(value);
     });
   }
 
@@ -292,6 +292,14 @@ export default class AutoComplete extends Component {
     }
   }
 
+  onNewRequest(event, value, item){
+    let {
+      onNewRequest,
+    } = this.props;
+
+    onNewRequest && onNewRequest(event, value, item);
+  };
+
 
   render(){
 
@@ -337,18 +345,12 @@ export default class AutoComplete extends Component {
           className={classes.listItem}
           button
           onTouchTap={(event) => {
-
-            // console.log('onTouchTap', event);
-
-            if(this.props.onNewRequest){
-              // this.props.onNewRequest(item, index);
-              this.props.onNewRequest(event, value, item);
-            }
-
             this.setState({
               value: value,
               title: title,
               open: false,
+            }, () => {
+              this.onNewRequest(event, value, item);
             });
           }}
         >
