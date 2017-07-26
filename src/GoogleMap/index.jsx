@@ -90,6 +90,9 @@ export default class GoogleMap extends Component{
 
   onMapLoaded(google){
 
+    let {
+      onMapLoaded,
+    } = this.props;
 
   	let element = this.GoogleMapContainer;
 
@@ -124,8 +127,8 @@ export default class GoogleMap extends Component{
 
 
     this.setState({map, google}, () => {
-
-      this.createNewMarker();
+      // this.createNewMarker();
+      onMapLoaded && onMapLoaded(map, google);
     });
   }
 
@@ -133,8 +136,15 @@ export default class GoogleMap extends Component{
     Видимая часть была загружена (плитка)
   */
   onTilesLoaded(){
+
+    let {
+      onTilesLoaded,
+    } = this.props;
+
     this.setState({
       mapTilesLoaded: true,
+    }, () => {
+      onTilesLoaded && onTilesLoaded();
     });
   }
 
