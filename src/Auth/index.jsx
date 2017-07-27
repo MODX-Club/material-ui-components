@@ -568,7 +568,7 @@ export default class Auth extends Component {
       wait_for_response: false,
     };
 
-    fetch(CONNECTOR_URL +'?pub_action=registration',{
+    fetch(this.props.connector_url +'?pub_action=registration',{
       credentials: 'same-origin',
       method: "POST",
       body: body,
@@ -643,7 +643,7 @@ export default class Auth extends Component {
       password_send_in_progress: true,
     });
 
-    fetch(CONNECTOR_URL +'?pub_action=password/forgot',{
+    fetch(this.props.connector_url +'?pub_action=password/forgot',{
       credentials: 'same-origin',
       method: "POST",
       body: body,
