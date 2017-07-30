@@ -314,8 +314,30 @@ export default class AutoComplete extends Component {
       popoverStyle,
       onBlur,
       closeOnBlur,
+      popover_id,
+      connector_url,
+      connector_path,
+      maxSearchResults,
+      searchText,
+      dataSource: propsDataSource,
+      anchorEl,
+      valueFieldType,
+      onNewRequest,
+      placeholder,
+      textFieldProps,
+      onUpdateInput,
       ...other
     } = this.props;
+
+    textFieldProps = textFieldProps || {};
+
+    if(placeholder){
+      textFieldProps.inputProps = textFieldProps.inputProps || {};
+
+      Object.assign(textFieldProps.inputProps, {
+        placeholder,
+      });
+    }
 
     let {
       dataSource, 
@@ -363,6 +385,7 @@ export default class AutoComplete extends Component {
 
     return <div
       className={["textfield-wrapper", this.props.className].join(" ")}
+      {...other}
     >
       {/* this.state.open 
         ? 
@@ -452,6 +475,7 @@ export default class AutoComplete extends Component {
             // style={{
             //   zIndex: 1000,
             // }}
+            {...textFieldProps}
           />
         </Grid>
 
