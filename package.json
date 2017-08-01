@@ -36,5 +36,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.14.3"
+  "version": "1.14.4"
 }

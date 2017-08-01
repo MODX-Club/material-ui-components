@@ -342,7 +342,7 @@ export default class AutoComplete extends Component {
     let {
       dataSource, 
       value, 
-      title
+      title,
     } = this.state;
 
     var items = [];
@@ -357,10 +357,18 @@ export default class AutoComplete extends Component {
 
       dataSource.map((item) => {
 
-        var value = item[valueField];
-        var title = item[displayField] || value;
+        var fieldValue = item[valueField];
+        var fieldTitle = item[displayField] || value;
 
         // console.log('items map', item, value, title);
+
+        if(
+          value
+          && fieldValue == fieldValue
+          && !title
+        ){
+          title = fieldTitle || fieldValue;
+        }
 
         items.push(<ListItem
           key={items.length}
@@ -368,15 +376,15 @@ export default class AutoComplete extends Component {
           button
           onTouchTap={(event) => {
             this.setState({
-              value: value,
-              title: title,
+              value: fieldValue,
+              title: fieldTitle,
               open: false,
             }, () => {
               this.onNewRequest(event, value, item);
             });
           }}
         >
-          <ListItemText primary={item[displayFormattedField] || title} />
+          <ListItemText primary={item[displayFormattedField] || fieldTitle} />
         </ListItem>);
       });
     }
@@ -437,7 +445,7 @@ export default class AutoComplete extends Component {
             aria-haspopup="true"
             label={this.props.label}
             error={this.props.error}
-            value={this.state.open ? this.state.searchText : this.state.title}
+            value={this.state.open ? this.state.searchText : title}
             onChange={(event) => {
               if(disabled){
                 return;
@@ -452,7 +460,7 @@ export default class AutoComplete extends Component {
 
               this.setState({
                 open: true,
-                searchText: this.state.title || this.state.value || '',
+                searchText: title || value || '',
               });
             }}
             onBlur={(event) => {
