@@ -364,10 +364,11 @@ export default class AutoComplete extends Component {
 
         if(
           value
-          && fieldValue == fieldValue
+          && value == fieldValue
           && !title
         ){
           title = fieldTitle || fieldValue;
+          // console.log('items title', fieldTitle, fieldValue);
         }
 
         items.push(<ListItem
