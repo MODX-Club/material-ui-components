@@ -51,7 +51,7 @@ export default class Pagination extends Component{
       return null;
     }
  
-    let pages = Math.floor(total/limit);
+    let pages = Math.ceil(total/limit);
 
     var rows = [];
     if(page > 1){
