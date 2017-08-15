@@ -301,6 +301,15 @@ export default class AutoComplete extends Component {
   };
 
 
+  cleanupProps(props){
+
+    let {
+      ...other
+    } = props;
+
+    return other;
+  }
+
   render(){
 
     let {
@@ -328,6 +337,9 @@ export default class AutoComplete extends Component {
       onUpdateInput,
       ...other
     } = this.props;
+
+
+    let props = this.cleanupProps(other);
 
     textFieldProps = textFieldProps || {};
 
@@ -394,7 +406,7 @@ export default class AutoComplete extends Component {
 
     return <div
       className={["textfield-wrapper", this.props.className].join(" ")}
-      {...other}
+      {...props}
     >
       {/* this.state.open 
         ? 

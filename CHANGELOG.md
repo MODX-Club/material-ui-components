@@ -45,3 +45,7 @@
 ================================================
 - Pagination fix
 - Added GoogleMap::initMap(map)
+
+1.14.7
+================================================
+AutoComplete cleanupProps

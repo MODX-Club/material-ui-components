@@ -90,10 +90,6 @@ export default class GoogleMap extends Component{
 
   onMapLoaded(google){
 
-    let {
-      onMapLoaded,
-    } = this.props;
-
   	let element = this.GoogleMapContainer;
 
   	if(!element){
@@ -125,20 +121,23 @@ export default class GoogleMap extends Component{
     //  Latlng = map.center;
     // }
 
-    this.initMap(map);
+    this.initMap(map, google);
 
-    this.setState({map, google}, () => {
-      // this.createNewMarker();
-      onMapLoaded && onMapLoaded(map, google);
-    });
+    
 
     return;
   }
 
   // Инициализация карты
-  initMap(map){
+  initMap(map, google){
 
-    return map;
+    let {
+      onMapLoaded,
+    } = this.props;
+
+    return this.setState({map, google}, () => {
+      onMapLoaded && onMapLoaded(map, google);
+    });
   }
 
   /*
