@@ -125,11 +125,20 @@ export default class GoogleMap extends Component{
     //  Latlng = map.center;
     // }
 
+    this.initMap(map);
 
     this.setState({map, google}, () => {
       // this.createNewMarker();
       onMapLoaded && onMapLoaded(map, google);
     });
+
+    return;
+  }
+
+  // Инициализация карты
+  initMap(map){
+
+    return map;
   }
 
   /*
