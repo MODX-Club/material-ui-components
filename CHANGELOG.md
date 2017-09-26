@@ -48,4 +48,9 @@
 
 1.14.7
 ================================================
-AutoComplete cleanupProps
+- AutoComplete cleanupProps
+
+1.14.8
+================================================
+- Fix searching
+- Fix list limit

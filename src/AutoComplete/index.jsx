@@ -327,7 +327,6 @@ export default class AutoComplete extends Component {
       connector_url,
       connector_path,
       maxSearchResults,
-      searchText,
       dataSource: propsDataSource,
       anchorEl,
       valueFieldType,
@@ -355,6 +354,7 @@ export default class AutoComplete extends Component {
       dataSource, 
       value, 
       title,
+      searchText,
     } = this.state;
 
     var items = [];
@@ -365,9 +365,16 @@ export default class AutoComplete extends Component {
       maxHeight: 300,
     }, popoverStyle);
 
+    const search = searchText && new RegExp(searchText, 'ui') || undefined;
+
     if(dataSource && dataSource.length){
 
-      dataSource.map((item) => {
+      dataSource.map((item, index) => {
+
+
+        if(maxSearchResults && index >= maxSearchResults){
+          return false;
+        }
 
         var fieldValue = item[valueField];
         var fieldTitle = item[displayField] || value;
@@ -383,6 +390,26 @@ export default class AutoComplete extends Component {
           // console.log('items title', fieldTitle, fieldValue);
         }
 
+        const displayTitle = String(item[displayFormattedField] || fieldTitle || "");
+
+        if(
+          search 
+          && !(
+            (displayTitle && displayTitle.match(search))
+            // || (
+            //   value && (
+            //     (value.match && value.match(search))
+            //     || value == searchText
+            //   )
+            // )
+          )
+        ){
+          return;
+        }
+
+        // console.log('maxSearchResults', maxSearchResults, index);
+        
+
         items.push(<ListItem
           key={items.length}
           className={classes.listItem}
@@ -397,7 +424,7 @@ export default class AutoComplete extends Component {
             });
           }}
         >
-          <ListItemText primary={item[displayFormattedField] || fieldTitle} />
+          <ListItemText primary={displayTitle} />
         </ListItem>);
       });
     }
@@ -458,7 +485,8 @@ export default class AutoComplete extends Component {
             aria-haspopup="true"
             label={this.props.label}
             error={this.props.error}
-            value={this.state.open ? this.state.searchText : title}
+            value={this.state.open ? searchText : title}
+            placeholder={title || undefined}
             onChange={(event) => {
               if(disabled){
                 return;
@@ -473,7 +501,7 @@ export default class AutoComplete extends Component {
 
               this.setState({
                 open: true,
-                searchText: title || value || '',
+                // searchText: title || value || '',
               });
             }}
             onBlur={(event) => {
