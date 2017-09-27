@@ -372,7 +372,7 @@ export default class AutoComplete extends Component {
       dataSource.map((item, index) => {
 
 
-        if(maxSearchResults && index >= maxSearchResults){
+        if(maxSearchResults && items.length >= maxSearchResults){
           return false;
         }
 
