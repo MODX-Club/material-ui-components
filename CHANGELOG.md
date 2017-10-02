@@ -58,3 +58,7 @@
 1.14.9
 ================================================
 - Fix list limit with search
+
+1.14.10
+================================================
+- Fix list limit with search, added filterResults param

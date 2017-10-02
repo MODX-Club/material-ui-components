@@ -41,6 +41,7 @@ const defaultProps = {
   displayField: 'name',
   displayFormattedField: 'formattedName',
   closeOnBlur: true,
+  filterResults: false,   // Фильтровать элементы выпадающего списка
 }
 
 const propTypes = {
@@ -334,6 +335,7 @@ export default class AutoComplete extends Component {
       placeholder,
       textFieldProps,
       onUpdateInput,
+      filterResults,
       ...other
     } = this.props;
 
@@ -394,6 +396,7 @@ export default class AutoComplete extends Component {
 
         if(
           search 
+          && filterResults
           && !(
             (displayTitle && displayTitle.match(search))
             // || (
