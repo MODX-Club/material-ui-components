@@ -316,9 +316,20 @@ class ProfileDialogAuthStepRegister extends Component {
             key="login"
             label={lexicon.loginName}
             error={this.props.errors && this.props.errors.username ? true : false}
+            helperText={this.props.errors && this.props.errors.username || ""}
             name="login"
             value={this.props.login}
             onChange={this.props.onChange}
+            onFocus={e => {
+              if(this.props.errors && this.props.errors.username){
+                this.props.errors.username = "";
+                this.forceUpdate();
+              }
+              if(this.props.errors && this.props.errors.login){
+                this.props.errors.login = "";
+                this.forceUpdate();
+              }
+            }}
             onKeyDown={(e) => {
               if(e.which == 13){
                 this.onEnter();
@@ -331,10 +342,17 @@ class ProfileDialogAuthStepRegister extends Component {
             key="email"
             label={lexicon.emailName}
             error={this.props.errors && this.props.errors.email ? true : false}
+            helperText={this.props.errors && this.props.errors.email || ""}
             type="email"
             name="email"
             value={this.props.email}
             onChange={this.props.onChange}
+            onFocus={e => {
+              if(this.props.errors && this.props.errors.email){
+                this.props.errors.email = "";
+                this.forceUpdate();
+              }
+            }}
             onKeyDown={(e) => {
               if(e.which == 13){
                 this.onEnter();
@@ -588,6 +606,13 @@ export default class Auth extends Component {
             email: "",
             password: "",
           });
+
+          this.props.addInformerMessage({
+            text: data.message || "Регистрация успешно выполнена.",
+            type: "success",
+            autohide: 4000,
+          });
+
         }
         else{
 
