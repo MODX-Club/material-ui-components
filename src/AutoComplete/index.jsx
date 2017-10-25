@@ -392,13 +392,14 @@ export default class AutoComplete extends Component {
           // console.log('items title', fieldTitle, fieldValue);
         }
 
-        const displayTitle = String(item[displayFormattedField] || fieldTitle || "");
+        // const displayTitle = String(item[displayFormattedField] || fieldTitle || "");
+        const displayTitle = item[displayFormattedField] || fieldTitle || "";
 
         if(
           search 
           && filterResults
           && !(
-            (displayTitle && displayTitle.match(search))
+            (displayTitle && String(displayTitle).match(search))
             // || (
             //   value && (
             //     (value.match && value.match(search))

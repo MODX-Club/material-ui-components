@@ -11,7 +11,7 @@ const defaultProps = {
 }
 
 
-class YaAutoComplete extends AutoComplete{
+export class YaAutoComplete extends AutoComplete{
 
   loadData(){
 
